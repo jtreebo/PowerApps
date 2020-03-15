@@ -38,7 +38,7 @@ export class Toolbar extends React.Component<{}, IDetailsListDocumentsExampleSta
         key: 'upload',
         text: 'Upload',
         iconProps: { iconName: 'Upload' },
-        click: this.handleChange
+        onClick: this.handleChange
       },
       {
         key: 'share',
