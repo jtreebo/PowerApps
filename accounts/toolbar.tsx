@@ -7,9 +7,10 @@ export interface IDetailsListDocumentsExampleState {
   items: ICommandBarItemProps[];
 
 }
-export class CommandBarBasicExample extends React.Component<{}, IDetailsListDocumentsExampleState> {
+export class Toolbar extends React.Component<{}, IDetailsListDocumentsExampleState> {
   constructor(props: {}) {
     super(props);
+    this.handleChange = this.handleChange.bind(this);
 
     const _items: ICommandBarItemProps[] = [
       {
@@ -37,7 +38,7 @@ export class CommandBarBasicExample extends React.Component<{}, IDetailsListDocu
         key: 'upload',
         text: 'Upload',
         iconProps: { iconName: 'Upload' },
-        href: 'https://dev.office.com/fabric'
+        click: this.handleChange
       },
       {
         key: 'share',
@@ -56,11 +57,13 @@ export class CommandBarBasicExample extends React.Component<{}, IDetailsListDocu
     this.state = {
       items: _items
     };
-
-
-
-
   }
+
+  handleChange(e) {
+    debugger;
+    this.props.onItemClick(e.target.value);
+  }
+
   render() {
     const { items } = this.state;
     return (

@@ -5,7 +5,7 @@ import { DetailsList, DetailsListLayoutMode, Selection, IColumn } from 'office-u
 import { MarqueeSelection } from 'office-ui-fabric-react/lib/MarqueeSelection';
 import { Fabric } from 'office-ui-fabric-react/lib/Fabric';
 import { mergeStyles } from 'office-ui-fabric-react/lib/Styling';
-
+import { Toolbar } from './toolbar';
 const exampleChildClass = mergeStyles({
   display: 'block',
   marginBottom: '10px'
@@ -31,7 +31,7 @@ export class DetailsListBasicExample extends React.Component<{}, IDetailsListBas
 
   constructor(props: {}) {
     super(props);
-
+this.onClick = this.onClick.bind(this);
     this._selection = new Selection({
       onSelectionChanged: () => this.setState({ selectionDetails: this._getSelectionDetails() })
     });
@@ -67,11 +67,17 @@ export class DetailsListBasicExample extends React.Component<{}, IDetailsListBas
         this.setState({ items: data });
       })
   };
+
+  private onClick() {
+    alert("D");
+  };
+
   public render(): JSX.Element {
     const { items, selectionDetails } = this.state;
 
     return (
       <Fabric>
+      <Toolbar onItemClick={this.onClick} />
         <MarqueeSelection selection={this._selection}>
           <DetailsList
             items={items}
@@ -101,7 +107,7 @@ export class DetailsListBasicExample extends React.Component<{}, IDetailsListBas
       case 1:
         return '1 item selected: ' + (this._selection.getSelection()[0] as IDetailsListBasicExampleItem).company;
       default:
-        return `${selectionCount} items selected`;
+        return '${selectionCount} items selected';
     }
   }
 
