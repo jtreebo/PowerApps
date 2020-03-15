@@ -62,8 +62,10 @@ export class Toolbar extends React.Component<{}, IDetailsListDocumentsExampleSta
     };
   }
 
+
   handleChange(ev: React.KeyboardEvent<HTMLElement>, item?: IContextualMenuItem) {
     this.props.onButtonClick(item.key);
+    
   }
 
   render() {

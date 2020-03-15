@@ -6,7 +6,7 @@ import { Account } from '.././forms/account';
 import { Person } from '.././forms/person';
 import { AccountList } from '.././accounts/list';
 import { ShimmerApplicationExample } from '.././accounts/detailList';
-import { DetailsListBasicExample } from '.././accounts/detailListBasic';
+import { List } from '.././accounts/list';
 
 export class Navigate extends Component {
     static displayName = Navigate.name;
@@ -33,16 +33,8 @@ export class Navigate extends Component {
         component = <Account />;
         break;
       case "accountList":
-        component = <AccountList />;
+        component = <List />;
         break;
-      case "shimmerApplicationExample":
-        component = <ShimmerApplicationExample />;
-        break;
-      case "detailListBasic":
-        component = <DetailsListBasicExample />;
-        break;
-
-        
       default:
         component = <Person />;
     }
@@ -93,21 +85,7 @@ export class Navigate extends Component {
                                         url: '',
                                         key: 'account',
                                         target: '_blank'
-                                    },
-                                    {
-                                        name: 'Data',
-                                        icon: 'AccountManagement',
-                                        url: '',
-                                        key: 'accountList',
-                                        target: '_blank'
-                                    },
-                                    {
-                                        name: 'Shimmer',
-                                        icon: 'AccountManagement',
-                                        url: '',
-                                        key: 'shimmerApplicationExample',
-                                        target: '_blank'
-                                    },
+                                    }
                                     
                                 ],
                                 isExpanded: true
@@ -116,7 +94,7 @@ export class Navigate extends Component {
                                         name: 'Accounts',
                                         icon: 'AccountManagement',
                                         url: '',
-                                        key: 'detailListBasic',
+                                        key: 'accountList',
                                         target: '_blank'
                                     }
                             
