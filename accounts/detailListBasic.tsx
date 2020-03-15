@@ -72,15 +72,6 @@ export class DetailsListBasicExample extends React.Component<{}, IDetailsListBas
 
     return (
       <Fabric>
-        <div className={exampleChildClass}>{selectionDetails}</div>
-        <Announced message={selectionDetails} />
-        <TextField
-          className={exampleChildClass}
-          label="Filter by name:"
-          onChange={this._onFilter}
-          styles={{ root: { maxWidth: '300px' } }}
-        />
-        <Announced message={`Number of items after filter applied: ${items.length}.`} />
         <MarqueeSelection selection={this._selection}>
           <DetailsList
             items={items}
@@ -95,6 +86,8 @@ export class DetailsListBasicExample extends React.Component<{}, IDetailsListBas
             onItemInvoked={this._onItemInvoked}
           />
         </MarqueeSelection>
+        <div className={exampleChildClass}>{selectionDetails}</div>
+        <Announced message={selectionDetails} />
       </Fabric>
     );
   }
