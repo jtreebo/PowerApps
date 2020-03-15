@@ -97,8 +97,6 @@ export const Top: React.FunctionComponent = () => {
       // Custom render all buttons
       buttonAs={CustomButton}
       items={_items}
-      overflowItems={_overflowItems}
-      farItems={_farItems}
       ariaLabel="Use left and right arrow keys to navigate between commands"
       styles={{
         ...barStyles
