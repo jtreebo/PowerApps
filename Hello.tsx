@@ -4,7 +4,7 @@ export default ({ name }) =>
 <>
 <h1>React/UI Fabric/TypeScript</h1>
 <p>
-
+My 1st Dive into Reach/UI Fabric/TypeScript. This repo is constanly changing.
 </p>
 <p>
 Resources
