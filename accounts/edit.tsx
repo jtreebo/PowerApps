@@ -32,16 +32,47 @@ const INITIAL_OPTIONS: IComboBoxOption[] = [
   { key: 'J', text: 'Option J' }
 ];
 
+
 export class DialogBlockingExample extends React.Component<{}, IDialogBlockingExampleState> {
 
   constructor(props: {}) {
     super(props);
+
     this.state = {
       hideDialog: true,
       isDraggable: false,
       id: ""
     };
   }
+
+renderDetail() {
+  return (
+<>
+        <SpinButton
+                defaultValue="0"
+                label={'Number of subjects to add:'}
+                min={0}
+                max={100}
+                step={1}
+                iconProps={{ iconName: 'IncreaseIndentLegacy' }}
+                // tslint:disable:jsx-no-lambda
+                onFocus={() => console.log('onFocus called')}
+                onBlur={() => console.log('onBlur called')}
+                incrementButtonAriaLabel={'Increase value by 1'}
+                decrementButtonAriaLabel={'Decrease value by 1'}
+              />
+              <TextField label="Firstname" name="firstName" required value={this.state.id}/>
+              <ComboBox
+                label="Sample subject lines you could add instead"
+                placeholder="Select or type an option"
+                allowFreeform
+                autoComplete="on"
+                options={INITIAL_OPTIONS}
+              />
+  </>
+
+  )
+}
 
   private _dragOptions = {
     moveMenuItemText: 'Move',
@@ -64,39 +95,29 @@ export class DialogBlockingExample extends React.Component<{}, IDialogBlockingEx
           }}
           modalProps={{
             isBlocking: true,
-            styles: { main: { maxWidth: 800, minWidth: 800 } },
+            styles: { main: { 
+              selectors: {
+                ['@media (min-width: 480px)']: {
+                  width: '90%',
+                  height: '90%',
+                  minWidth: '90%',
+                  maxWidth: '1000px'
+                }
+              }} 
+              },
             dragOptions: isDraggable ? this._dragOptions : undefined
           }}
         >
 
         <Pivot aria-label="Basic Pivot Example">
-          <PivotItem   headerText="My Files">
-            <SpinButton
-                defaultValue="0"
-                label={'Number of subjects to add:'}
-                min={0}
-                max={100}
-                step={1}
-                iconProps={{ iconName: 'IncreaseIndentLegacy' }}
-                // tslint:disable:jsx-no-lambda
-                onFocus={() => console.log('onFocus called')}
-                onBlur={() => console.log('onBlur called')}
-                incrementButtonAriaLabel={'Increase value by 1'}
-                decrementButtonAriaLabel={'Decrease value by 1'}
-              />
-              <TextField label="Firstname" name="firstName" required value={id}/>
-              <ComboBox
-                label="Sample subject lines you could add instead"
-                placeholder="Select or type an option"
-                allowFreeform
-                autoComplete="on"
-                options={INITIAL_OPTIONS}
-              />
+          <PivotItem   headerText="Detail">
+            {this.renderDetail()}
+              
           </PivotItem>
-          <PivotItem headerText="Recent">
+          <PivotItem headerText="Views">
             <Label >Pivot #2</Label>
           </PivotItem>
-          <PivotItem headerText="Shared with me">
+          <PivotItem headerText="Filters">
             <Label >Pivot #3</Label>
           </PivotItem>
         </Pivot>
@@ -110,6 +131,10 @@ export class DialogBlockingExample extends React.Component<{}, IDialogBlockingEx
       </div>
     );
   }
+
+
+
+
   private _showDialog = (id: string): void => {
         this.setState({ hideDialog: false, id: id });
   };
