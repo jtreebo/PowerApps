@@ -57,6 +57,7 @@ export class Navigate extends Component {
                 styles={{
                     root: {
                         width: 208,
+                        borderRight: '0px solid transparent',
                         backgroundColor: 'rgb(239, 239, 239)',
                         overflowY: 'auto',
                         position: 'relative'

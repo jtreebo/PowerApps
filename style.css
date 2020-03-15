@@ -30,3 +30,7 @@ body {
   display: table;
   clear: both;
 }
+
+#topBar {
+  background-color: #742774
+}
