@@ -113,38 +113,13 @@ export class Navigate extends Component {
                                 isExpanded: true
                             },
                            {
-                                        name: 'Basic',
+                                        name: 'Accounts',
                                         icon: 'AccountManagement',
                                         url: '',
                                         key: 'detailListBasic',
                                         target: '_blank'
-                                    },
-                            {
-                                name: 'Pages',
-                                url: 'http://msn.com',
-                                key: 'key4',
-                                target: '_blank'
-                            },
-                            {
-                                name: 'Notebook',
-                                url: 'http://msn.com',
-                                key: 'key5',
-                                disabled: true
-                            },
-                            {
-                                name: 'Communication and Media',
-                                url: 'http://msn.com',
-                                key: 'key6',
-                                target: '_blank'
-                            },
-                            {
-                                name: 'News',
-                                url: '',
-                                icon: 'News',
-                                key: 'key7',
-                                target: '_blank',
-                                id: '123'
-                            }
+                                    }
+                            
                         ]
                     }
                 ]}

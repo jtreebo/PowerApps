@@ -64,7 +64,6 @@ export class DetailsListBasicExample extends React.Component<{}, IDetailsListBas
         }
       })
       .then(data => {
-
         this.setState({ items: data });
       })
   };
