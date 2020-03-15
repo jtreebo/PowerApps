@@ -1,13 +1,16 @@
 import * as React from 'react';
+import { render } from "react-dom";
 import { Dialog, DialogType, DialogFooter } from 'office-ui-fabric-react/lib/Dialog';
-import { PrimaryButton, DefaultButton } from 'office-ui-fabric-react/lib/Button';
+import { Stack, IStackStyles, IStackTokens } from 'office-ui-fabric-react/lib/Stack';
+import { PrimaryButton, DefaultButton} from 'office-ui-fabric-react/lib/Button';
 import { TextField, MaskedTextField } from 'office-ui-fabric-react/lib/TextField';
 import { ContextualMenu } from 'office-ui-fabric-react/lib/ContextualMenu';
 import { SpinButton } from 'office-ui-fabric-react/lib/SpinButton';
 import { Checkbox } from 'office-ui-fabric-react/lib/Checkbox';
-import { ComboBox, IComboBoxOption, SelectableOptionMenuItemType } from 'office-ui-fabric-react/lib/index';
+import { ComboBox, IComboBoxOption, SelectableOptionMenuItemType } from 'office-ui-fabric-react/lib/ComboBox';
 import { Label, ILabelStyles } from 'office-ui-fabric-react/lib/Label';
 import { Pivot, PivotItem } from 'office-ui-fabric-react/lib/Pivot';
+
 
 
 export interface IDialogBlockingExampleState {
@@ -32,6 +35,7 @@ const INITIAL_OPTIONS: IComboBoxOption[] = [
   { key: 'J', text: 'Option J' }
 ];
 
+const stackTokens: IStackTokens = { childrenGap: 10 };
 
 export class DialogBlockingExample extends React.Component<{}, IDialogBlockingExampleState> {
 
@@ -45,31 +49,37 @@ export class DialogBlockingExample extends React.Component<{}, IDialogBlockingEx
     };
   }
 
-renderDetail() {
+private renderDetail() {
   return (
-<>
+    <div>
+      <Stack tokens={stackTokens}>
         <SpinButton
-                defaultValue="0"
-                label={'Number of subjects to add:'}
-                min={0}
-                max={100}
-                step={1}
-                iconProps={{ iconName: 'IncreaseIndentLegacy' }}
-                // tslint:disable:jsx-no-lambda
-                onFocus={() => console.log('onFocus called')}
-                onBlur={() => console.log('onBlur called')}
-                incrementButtonAriaLabel={'Increase value by 1'}
-                decrementButtonAriaLabel={'Decrease value by 1'}
-              />
-              <TextField label="Firstname" name="firstName" required value={this.state.id}/>
-              <ComboBox
-                label="Sample subject lines you could add instead"
-                placeholder="Select or type an option"
-                allowFreeform
-                autoComplete="on"
-                options={INITIAL_OPTIONS}
-              />
-  </>
+                        defaultValue="0"
+                        labelPosition="top"
+                        label={'Number of subjects to add:'}
+                        min={0}
+                        max={100}
+                        step={1}
+                        iconProps={{ iconName: 'IncreaseIndentLegacy' }}
+                        // tslint:disable:jsx-no-lambda
+                        onFocus={() => console.log('onFocus called')}
+                        onBlur={() => console.log('onBlur called')}
+                        incrementButtonAriaLabel={'Increase value by 1'}
+                        decrementButtonAriaLabel={'Decrease value by 1'}
+                      />
+                      <TextField label="Name" name="name" required value={this.state.id} />
+
+                      <ComboBox 
+                        label="Sample subject lines you could add instead"
+                        placeholder="Select or type an option"
+                        autoComplete="on"
+                        options={INITIAL_OPTIONS}
+                      />
+
+      </Stack>
+
+            
+      </div>
 
   )
 }

@@ -3,16 +3,25 @@ h1, p {
 }
 body {
   margin:0;
+  background-color: #efefef;
 }
 .nav {
-  float: left;
   width: 200px;
+  
+  z-index: 2001;
+    position: absolute;
 }
 
 .detail {
   
-  margin-left:220px;
-  margin-right:20px;
+  border-left: 1px solid #dddddd;
+  min-height: 100vh;
+  background-color: #ffffff;
+  margin-left:210px;
+  padding-left:20px;
+  padding-right:20px;
+  display: block;
+    overflow: auto;
   }
 
 /* Clear floats after the columns */
