@@ -53,7 +53,7 @@ export class Toolbar extends React.Component<{}, IDetailsListDocumentsExampleSta
         key: 'download',
         text: 'Download',
         iconProps: { iconName: 'Download' },
-        onClick: () => console.log('Download')
+        onClick: this.handleChange
       }
     ];
 
