@@ -108,23 +108,17 @@ export class Navigate extends Component {
                                         key: 'shimmerApplicationExample',
                                         target: '_blank'
                                     },
-                                    {
+                                    
+                                ],
+                                isExpanded: true
+                            },
+                           {
                                         name: 'Basic',
                                         icon: 'AccountManagement',
                                         url: '',
                                         key: 'detailListBasic',
                                         target: '_blank'
-                                    }
-                                ],
-                                isExpanded: true
-                            },
-                            {
-                                name: 'Documents',
-                                url: 'http://example.com',
-                                key: 'key3',
-                                isExpanded: true,
-                                target: '_blank'
-                            },
+                                    },
                             {
                                 name: 'Pages',
                                 url: 'http://msn.com',

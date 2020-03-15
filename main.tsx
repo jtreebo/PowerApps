@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { render } from 'react-dom';
 import { initializeIcons } from 'office-ui-fabric-react/lib/Icons';
 import {Navigate} from './components/Left';
-import {Person} from './forms/person';
+import Hello from './Hello';
 import './style.css';
 
 
@@ -28,7 +28,7 @@ export class Main extends Component {
       </div>
       <div class="detail" id='detail'>
       
-<Person />
+<Hello />
       </div>
       
       </div>
