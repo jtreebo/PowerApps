@@ -33,7 +33,7 @@ export class List extends React.Component<{}, IDetailsListBasicExampleState> {
   private _selection: Selection;
   private _allItems: IDetailsListBasicExampleItem[];
   private _columns: IColumn[];
-  private _b: any;
+  private _dialog: DialogBlockingExample;
 
   constructor(props: {}) {
     super(props);
@@ -76,7 +76,10 @@ this.onButtonClick = this.onButtonClick.bind(this);
   };
 
   private onButtonClick(key: string) {
-    this._b._showDialog();
+    const selectionCount = this._selection.getSelectedCount();
+    if (selectionCount === 0) return;
+    const item : IDetailsListBasicExampleItem = this._selection.getSelection()[0];
+    this._dialog._showDialog(item._id);
     
   };
 
@@ -85,9 +88,7 @@ this.onButtonClick = this.onButtonClick.bind(this);
 
     return (
       <Fabric>
-      <DialogBlockingExample  ref={ref => (this._b = ref)}  />
-
-
+      <DialogBlockingExample  ref={ref => (this._dialog = ref)}  />
 
       <Toolbar onButtonClick={this.onButtonClick} />
         <MarqueeSelection selection={this._selection}>
@@ -130,6 +131,7 @@ this.onButtonClick = this.onButtonClick.bind(this);
   };
 
   private _onItemInvoked = (item: IDetailsListBasicExampleItem): void => {
-    this._b._showDialog();
+    if (!item) return;
+    this._dialog._showDialog(item._id);
   };
 }
