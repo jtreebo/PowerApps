@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { CommandBar, ICommandBarItemProps } from 'office-ui-fabric-react/lib/CommandBar';
+import { ContextualMenuItem, IContextualMenuItem } from 'office-ui-fabric-react/lib/ContextualMenuItem';
 import { IButtonProps } from 'office-ui-fabric-react/lib/Button';
 
 const overflowProps: IButtonProps = { ariaLabel: 'More commands' };
@@ -24,11 +25,13 @@ export class Toolbar extends React.Component<{}, IDetailsListDocumentsExampleSta
               key: 'emailMessage',
               text: 'Email message',
               iconProps: { iconName: 'Mail' },
+               onClick: this.handleChange,
               ['data-automation-id']: 'newEmailButton' // optional
             },
             {
               key: 'calendarEvent',
               text: 'Calendar event',
+               onClick: this.handleChange,
               iconProps: { iconName: 'Calendar' }
             }
           ]
@@ -44,7 +47,7 @@ export class Toolbar extends React.Component<{}, IDetailsListDocumentsExampleSta
         key: 'share',
         text: 'Share',
         iconProps: { iconName: 'Share' },
-        onClick: () => console.log('Share')
+         onClick: this.handleChange
       },
       {
         key: 'download',
@@ -59,9 +62,8 @@ export class Toolbar extends React.Component<{}, IDetailsListDocumentsExampleSta
     };
   }
 
-  handleChange(e) {
-    debugger;
-    this.props.onItemClick(e.target.value);
+  handleChange(ev: React.KeyboardEvent<HTMLElement>, item?: IContextualMenuItem) {
+    this.props.onButtonClick(item.key);
   }
 
   render() {

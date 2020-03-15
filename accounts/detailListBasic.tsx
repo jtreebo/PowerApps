@@ -6,6 +6,9 @@ import { MarqueeSelection } from 'office-ui-fabric-react/lib/MarqueeSelection';
 import { Fabric } from 'office-ui-fabric-react/lib/Fabric';
 import { mergeStyles } from 'office-ui-fabric-react/lib/Styling';
 import { Toolbar } from './toolbar';
+import { ContextualMenuItem, IContextualMenuItem } from 'office-ui-fabric-react/lib/ContextualMenuItem';
+
+
 const exampleChildClass = mergeStyles({
   display: 'block',
   marginBottom: '10px'
@@ -31,7 +34,7 @@ export class DetailsListBasicExample extends React.Component<{}, IDetailsListBas
 
   constructor(props: {}) {
     super(props);
-this.onClick = this.onClick.bind(this);
+this.onButtonClick = this.onButtonClick.bind(this);
     this._selection = new Selection({
       onSelectionChanged: () => this.setState({ selectionDetails: this._getSelectionDetails() })
     });
@@ -68,8 +71,8 @@ this.onClick = this.onClick.bind(this);
       })
   };
 
-  private onClick() {
-    alert("D");
+  private onButtonClick(key: string) {
+    alert(key);
   };
 
   public render(): JSX.Element {
@@ -77,7 +80,7 @@ this.onClick = this.onClick.bind(this);
 
     return (
       <Fabric>
-      <Toolbar onItemClick={this.onClick} />
+      <Toolbar onButtonClick={this.onButtonClick} />
         <MarqueeSelection selection={this._selection}>
           <DetailsList
             items={items}
