@@ -1,0 +1,23 @@
+h1, p {
+  font-family: Lato;
+}
+body {
+  margin:0;
+}
+.nav {
+  float: left;
+  width: 200px;
+}
+
+.detail {
+  
+  margin-left:220px;
+  margin-right:20px;
+  }
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}

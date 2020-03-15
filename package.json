@@ -1,0 +1,24 @@
+{
+  "name": "react-ts",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "@types/react": "^16.9.24",
+    "@types/react-dom": "^16.9.5",
+    "@uifabric/example-data": "^7.0.6",
+    "@uifabric/react-hooks": "^7.0.19",
+    "office-ui-fabric-react": "7.103.0",
+    "react": "^16.13.0",
+    "react-dom": "^16.13.0",
+    "react-router-dom": "^5.1.2"
+  },
+  "scripts": {
+    "start": "react-scripts-ts start",
+    "build": "react-scripts-ts build",
+    "test": "react-scripts-ts test --env=jsdom",
+    "eject": "react-scripts-ts eject"
+  },
+  "devDependencies": {
+    "react-scripts-ts": "latest"
+  }
+}
