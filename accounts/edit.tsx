@@ -52,7 +52,9 @@ export class DialogBlockingExample extends React.Component<{}, IDialogBlockingEx
 private renderDetail() {
   return (
     <div>
-      <Stack tokens={stackTokens}>
+      <Stack horizontal tokens={stackTokens}>
+      <Stack.Item grow>
+                      <TextField label="Name" name="name" required value={this.state.id} />
         <SpinButton
                         defaultValue="0"
                         labelPosition="top"
@@ -67,14 +69,16 @@ private renderDetail() {
                         incrementButtonAriaLabel={'Increase value by 1'}
                         decrementButtonAriaLabel={'Decrease value by 1'}
                       />
-                      <TextField label="Name" name="name" required value={this.state.id} />
-
+      </Stack.Item>
+      <Stack.Item grow>
                       <ComboBox 
                         label="Sample subject lines you could add instead"
                         placeholder="Select or type an option"
                         autoComplete="on"
                         options={INITIAL_OPTIONS}
                       />
+      </Stack.Item>
+
 
       </Stack>
 
