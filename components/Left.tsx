@@ -56,10 +56,8 @@ export class Navigate extends Component {
                 ariaLabel="Nav basic example"
                 styles={{
                     root: {
-                        width: 208,
-                        borderRight: '0px solid transparent',
                         backgroundColor: 'rgb(239, 239, 239)',
-                        overflowY: 'auto',
+                        overflowY: 'hidden',
                         position: 'relative'
                     }
                 }}

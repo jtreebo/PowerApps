@@ -104,8 +104,8 @@ private renderDetail() {
           onDismiss={this._closeDialog}
           dialogContentProps={{
             type: DialogType.normal,
-            title: 'Missing Subject',
-            subText: 'Do you want to send this message without a subject?'
+            title: 'Account',
+            subText: ''
           }}
           modalProps={{
             isBlocking: true,

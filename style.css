@@ -13,9 +13,8 @@ body {
 }
 
 .detail {
-  
+ 
   border-left: 1px solid #dddddd;
-  min-height: 100vh;
   background-color: #ffffff;
   margin-left:210px;
   padding-left:20px;
