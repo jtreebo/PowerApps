@@ -5,31 +5,3 @@ body {
   margin:0;
   background-color: #efefef;
 }
-.nav {
-  width: 200px;
-  
-  z-index: 2001;
-    position: absolute;
-}
-
-.detail {
- 
-  border-left: 1px solid #dddddd;
-  background-color: #ffffff;
-  margin-left:210px;
-  padding-left:20px;
-  padding-right:20px;
-  display: block;
-    overflow: auto;
-  }
-
-/* Clear floats after the columns */
-.row:after {
-  content: "";
-  display: table;
-  clear: both;
-}
-
-#topBar {
-  background-color: #742774
-}

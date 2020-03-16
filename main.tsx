@@ -27,7 +27,7 @@ const detailStyles: IStackItemStyles = {
   root: {
     overflow: 'hidden',
     width: '100%',
-    height: 'calc(100vh - 40px)',
+    height: 'calc(100vh - 44px)',
     backgroundColor: '#ffffff',
     paddingLeft: 20,
     paddingRight:20
