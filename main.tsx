@@ -25,6 +25,7 @@ const navStyles: IStackItemStyles = {
 };
 const detailStyles: IStackItemStyles = {
   root: {
+    position: 'relative',
     overflow: 'hidden',
     width: '100%',
     height: 'calc(100vh - 44px)',

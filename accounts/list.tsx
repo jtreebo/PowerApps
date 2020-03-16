@@ -8,6 +8,8 @@ import { mergeStyles } from 'office-ui-fabric-react/lib/Styling';
 import { Toolbar } from './toolbar';
 import  { DialogBlockingExample } from './edit';
 import { ContextualMenuItem, IContextualMenuItem } from 'office-ui-fabric-react/lib/ContextualMenuItem';
+import { ScrollablePane, ScrollbarVisibility } from 'office-ui-fabric-react/lib/ScrollablePane';
+import { Sticky, StickyPositionType } from 'office-ui-fabric-react/lib/Sticky';
 
 
 const exampleChildClass = mergeStyles({
@@ -88,10 +90,14 @@ this.onButtonClick = this.onButtonClick.bind(this);
 
     return (
       <Fabric>
-      <DialogBlockingExample  ref={ref => (this._dialog = ref)}  />
 
-      <Toolbar onButtonClick={this.onButtonClick} />
-        <MarqueeSelection selection={this._selection}>
+      <DialogBlockingExample  ref={ref => (this._dialog = ref)}  />
+<ScrollablePane scrollbarVisibility={ScrollbarVisibility.auto}>
+<Sticky stickyPosition={StickyPositionType.Header}>
+            <Toolbar onButtonClick={this.onButtonClick} />
+          </Sticky>
+
+<MarqueeSelection selection={this._selection}>
           <DetailsList
             items={items}
             columns={this._columns}
@@ -105,8 +111,14 @@ this.onButtonClick = this.onButtonClick.bind(this);
             onItemInvoked={this._onItemInvoked}
           />
         </MarqueeSelection>
-        <div className={exampleChildClass}>{selectionDetails}</div>
+          <Sticky stickyPosition={StickyPositionType.Footer}>
+             <div className={exampleChildClass}>{selectionDetails}</div>
         <Announced message={selectionDetails} />
+          </Sticky>
+</ScrollablePane>
+
+     
+       
       </Fabric>
     );
   }

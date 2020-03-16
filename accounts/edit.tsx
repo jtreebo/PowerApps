@@ -10,6 +10,8 @@ import { Checkbox } from 'office-ui-fabric-react/lib/Checkbox';
 import { ComboBox, IComboBoxOption, SelectableOptionMenuItemType } from 'office-ui-fabric-react/lib/ComboBox';
 import { Label, ILabelStyles } from 'office-ui-fabric-react/lib/Label';
 import { Pivot, PivotItem } from 'office-ui-fabric-react/lib/Pivot';
+import { ScrollablePane, ScrollbarVisibility } from 'office-ui-fabric-react/lib/ScrollablePane';
+import { Sticky, StickyPositionType } from 'office-ui-fabric-react/lib/Sticky';
 
 
 
@@ -55,6 +57,7 @@ private renderDetail() {
       <Stack horizontal tokens={stackTokens}>
       <Stack.Item grow>
                       <TextField label="Name" name="name" required value={this.state.id} />
+
         <SpinButton
                         defaultValue="0"
                         labelPosition="top"
@@ -109,13 +112,14 @@ private renderDetail() {
           }}
           modalProps={{
             isBlocking: true,
+                        topOffsetFixed: true,
             styles: { main: { 
               selectors: {
                 ['@media (min-width: 480px)']: {
-                  width: '90%',
-                  height: '90%',
-                  minWidth: '90%',
-                  maxWidth: '1000px'
+                  width: '600px',
+                  
+                  minWidth: '600px',
+                  maxWidth: '800px'
                 }
               }} 
               },
@@ -123,7 +127,7 @@ private renderDetail() {
           }}
         >
 
-        <Pivot aria-label="Basic Pivot Example">
+<Pivot aria-label="Basic Pivot Example">
           <PivotItem   headerText="Detail">
             {this.renderDetail()}
               
@@ -135,12 +139,16 @@ private renderDetail() {
             <Label >Pivot #3</Label>
           </PivotItem>
         </Pivot>
-
-          
-          <DialogFooter>
+<DialogFooter>
             <PrimaryButton onClick={this._closeDialog} text="Send" />
             <DefaultButton onClick={this._closeDialog} text="Don't send" />
           </DialogFooter>
+
+
+        
+
+          
+         
         </Dialog>
       </div>
     );
