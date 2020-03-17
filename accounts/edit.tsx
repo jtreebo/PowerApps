@@ -48,13 +48,11 @@ export class DialogBlockingExample extends React.Component<{}, IDialogBlockingEx
     super(props);
 this.handleChange = this.handleChange.bind(this);
     this.handleDateChange = this.handleDateChange.bind(this);
+
     this.state = {
       hideDialog: true,
       isDraggable: false,
-      data: {
-        id: "",
-        date: new Date(1980,3,2)
-      }
+      data: { }
     };
   }
 

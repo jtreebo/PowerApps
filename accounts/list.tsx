@@ -94,7 +94,6 @@ const onRenderDetailsFooter: IRenderFunction<IDetailsFooterProps> = (props, defa
 };
 
 export interface IDetailsListBasicExampleItem {
-  _id: string;
   id:string;
   company: string;
   email: string;
@@ -225,8 +224,6 @@ this.onButtonClick = this.onButtonClick.bind(this);
 
   private _onItemInvoked = (item: IDetailsListBasicExampleItem): void => {
     if (!item) return;
-    item.id = item._id;
-    item.date = new Date(2000, 2,2);
     this._dialog._showDialog(item);
   };
 }
