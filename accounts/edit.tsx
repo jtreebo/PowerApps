@@ -19,10 +19,7 @@ import { DatePicker, DayOfWeek, IDatePickerStrings } from 'office-ui-fabric-reac
 export interface IDialogBlockingExampleState {
   hideDialog: boolean;
   isDraggable: boolean;
-  data: {
-    id:string,
-    date: Date
-  };
+  data: { };
   
 }
 
@@ -56,7 +53,7 @@ this.handleChange = this.handleChange.bind(this);
       isDraggable: false,
       data: {
         id: "",
-        date: new Date()
+        date: new Date(1980,3,2)
       }
     };
   }
@@ -84,8 +81,20 @@ handleChange(event) {
       <Stack horizontal tokens={stackTokens}>
       <Stack.Item grow>
                       <TextField label="Name" name="id" required value={this.state.data.id} onChange={this.handleChange} />
+                      <TextField label="Company" name="company" required value={this.state.data.company} onChange={this.handleChange} />
+                      <TextField label="Email" name="email" required value={this.state.data.email} onChange={this.handleChange} />
+                      <TextField label="Phone" name="phone" required value={this.state.data.phone} onChange={this.handleChange} />
 
-        <SpinButton
+
+      </Stack.Item>
+      <Stack.Item grow>
+                      <ComboBox 
+                        label="Sample subject lines you could add instead"
+                        placeholder="Select or type an option"
+                        autoComplete="on"
+                        options={INITIAL_OPTIONS}
+                      />
+                              <SpinButton
                         defaultValue="0"
                         labelPosition="top"
                         label={'Number of subjects to add:'}
@@ -98,14 +107,6 @@ handleChange(event) {
                         onBlur={() => console.log('onBlur called')}
                         incrementButtonAriaLabel={'Increase value by 1'}
                         decrementButtonAriaLabel={'Decrease value by 1'}
-                      />
-      </Stack.Item>
-      <Stack.Item grow>
-                      <ComboBox 
-                        label="Sample subject lines you could add instead"
-                        placeholder="Select or type an option"
-                        autoComplete="on"
-                        options={INITIAL_OPTIONS}
                       />
       </Stack.Item>
       </Stack>
@@ -189,9 +190,7 @@ handleChange(event) {
 
 
 
-  private _showDialog = (id: string): void => {
-      let data = this.state.data;
-      data.id = id;
+  private _showDialog = (data: object): void => {
         this.setState({ hideDialog: false, data: data });
   };
 
