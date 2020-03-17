@@ -12,13 +12,18 @@ import { Label, ILabelStyles } from 'office-ui-fabric-react/lib/Label';
 import { Pivot, PivotItem } from 'office-ui-fabric-react/lib/Pivot';
 import { ScrollablePane, ScrollbarVisibility } from 'office-ui-fabric-react/lib/ScrollablePane';
 import { Sticky, StickyPositionType } from 'office-ui-fabric-react/lib/Sticky';
-
+import { IRenderFunction } from 'office-ui-fabric-react/lib/Utilities';
+import { DatePicker, DayOfWeek, IDatePickerStrings } from 'office-ui-fabric-react/lib/DatePicker';
 
 
 export interface IDialogBlockingExampleState {
   hideDialog: boolean;
   isDraggable: boolean;
-  id:string;
+  data: {
+    id:string,
+    date: Date
+  };
+  
 }
 
 const INITIAL_OPTIONS: IComboBoxOption[] = [
@@ -38,25 +43,47 @@ const INITIAL_OPTIONS: IComboBoxOption[] = [
 ];
 
 const stackTokens: IStackTokens = { childrenGap: 10 };
+ 
 
 export class DialogBlockingExample extends React.Component<{}, IDialogBlockingExampleState> {
 
   constructor(props: {}) {
     super(props);
-
+this.handleChange = this.handleChange.bind(this);
+    this.handleDateChange = this.handleDateChange.bind(this);
     this.state = {
       hideDialog: true,
       isDraggable: false,
-      id: ""
+      data: {
+        id: "",
+        date: new Date()
+      }
     };
   }
 
-private renderDetail() {
+handleChange(event) {
+    let data = this.state.data;
+
+    data[event.target.name] = event.target.value;
+    this.setState({data: data});
+
+        console.log(data);
+  }
+
+  handleDateChange(date) {
+    let data = this.state.data;
+
+    data.date = date;
+    this.setState({data: data});
+  }
+
+  private renderDetail() {
+    console.log("tab1");
   return (
     <div>
       <Stack horizontal tokens={stackTokens}>
       <Stack.Item grow>
-                      <TextField label="Name" name="name" required value={this.state.id} />
+                      <TextField label="Name" name="id" required value={this.state.data.id} onChange={this.handleChange} />
 
         <SpinButton
                         defaultValue="0"
@@ -81,15 +108,12 @@ private renderDetail() {
                         options={INITIAL_OPTIONS}
                       />
       </Stack.Item>
-
-
       </Stack>
-
-            
       </div>
-
   )
 }
+
+ 
 
   private _dragOptions = {
     moveMenuItemText: 'Move',
@@ -98,7 +122,7 @@ private renderDetail() {
   };
 
   public render() {
-    const { hideDialog, isDraggable, id } = this.state;
+    const { hideDialog, isDraggable, data } = this.state;
     return (
       <div>
         
@@ -133,7 +157,15 @@ private renderDetail() {
               
           </PivotItem>
           <PivotItem headerText="Views">
-            <Label >Pivot #2</Label>
+            
+<DatePicker
+          label="Start date"
+          isRequired={false}
+          allowTextInput={true}
+          value={this.state.data.date}
+          onSelectDate={this.handleDateChange}
+        />
+
           </PivotItem>
           <PivotItem headerText="Filters">
             <Label >Pivot #3</Label>
@@ -158,7 +190,9 @@ private renderDetail() {
 
 
   private _showDialog = (id: string): void => {
-        this.setState({ hideDialog: false, id: id });
+      let data = this.state.data;
+      data.id = id;
+        this.setState({ hideDialog: false, data: data });
   };
 
   private _closeDialog = (): void => {

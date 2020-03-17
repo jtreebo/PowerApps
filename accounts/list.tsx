@@ -20,10 +20,12 @@ import { Sticky, StickyPositionType } from 'office-ui-fabric-react/lib/Sticky';
 import { IRenderFunction } from 'office-ui-fabric-react/lib/Utilities';
 import { TooltipHost } from 'office-ui-fabric-react/lib/Tooltip';
 import { mergeStyleSets } from 'office-ui-fabric-react/lib/Styling';
+
 const exampleChildClass = mergeStyles({
   display: 'block',
   marginBottom: '10px'
 });
+
 const _footerItem: IScrollablePaneDetailsListExampleItem = {
   key: 'footer',
   test1: 'Footer 1',
@@ -33,6 +35,7 @@ const _footerItem: IScrollablePaneDetailsListExampleItem = {
   test5: 'Footer 5',
   test6: 'Footer 6'
 };
+
 const classNames = mergeStyleSets({
   wrapper: {
     height: '80vh',
@@ -49,9 +52,6 @@ const classNames = mergeStyleSets({
     display: 'inline-block'
   }
 });
-function _onItemInvoked(item: IScrollablePaneDetailsListExampleItem): void {
-  alert('Item invoked: ' + item.test1);
-}
 
 const onRenderDetailsHeader: IRenderFunction<IDetailsHeaderProps> = (props, defaultRender) => {
   if (!props) {
