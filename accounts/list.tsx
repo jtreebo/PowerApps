@@ -1,7 +1,14 @@
 import * as React from 'react';
 import { Announced } from 'office-ui-fabric-react/lib/Announced';
 import { TextField } from 'office-ui-fabric-react/lib/TextField';
-import { DetailsList, DetailsListLayoutMode, Selection, IColumn } from 'office-ui-fabric-react/lib/DetailsList';
+import { DetailsList,
+  DetailsListLayoutMode,
+  IDetailsHeaderProps,
+  Selection,
+  IColumn,
+  ConstrainMode,
+  IDetailsFooterProps,
+  DetailsRow } from 'office-ui-fabric-react/lib/DetailsList';
 import { MarqueeSelection } from 'office-ui-fabric-react/lib/MarqueeSelection';
 import { Fabric } from 'office-ui-fabric-react/lib/Fabric';
 import { mergeStyles } from 'office-ui-fabric-react/lib/Styling';
@@ -10,12 +17,81 @@ import  { DialogBlockingExample } from './edit';
 import { ContextualMenuItem, IContextualMenuItem } from 'office-ui-fabric-react/lib/ContextualMenuItem';
 import { ScrollablePane, ScrollbarVisibility } from 'office-ui-fabric-react/lib/ScrollablePane';
 import { Sticky, StickyPositionType } from 'office-ui-fabric-react/lib/Sticky';
-
-
+import { IRenderFunction } from 'office-ui-fabric-react/lib/Utilities';
+import { TooltipHost } from 'office-ui-fabric-react/lib/Tooltip';
+import { mergeStyleSets } from 'office-ui-fabric-react/lib/Styling';
 const exampleChildClass = mergeStyles({
   display: 'block',
   marginBottom: '10px'
 });
+const _footerItem: IScrollablePaneDetailsListExampleItem = {
+  key: 'footer',
+  test1: 'Footer 1',
+  test2: 'Footer 2',
+  test3: 'Footer 3',
+  test4: 'Footer 4',
+  test5: 'Footer 5',
+  test6: 'Footer 6'
+};
+const classNames = mergeStyleSets({
+  wrapper: {
+    height: '80vh',
+    position: 'relative'
+  },
+  filter: {
+    paddingBottom: 20,
+    maxWidth: 300
+  },
+  header: {
+    margin: 0
+  },
+  row: {
+    display: 'inline-block'
+  }
+});
+function _onItemInvoked(item: IScrollablePaneDetailsListExampleItem): void {
+  alert('Item invoked: ' + item.test1);
+}
+
+const onRenderDetailsHeader: IRenderFunction<IDetailsHeaderProps> = (props, defaultRender) => {
+  if (!props) {
+    return null;
+  }
+
+  const onRenderColumnHeaderTooltip: IRenderFunction<IDetailsColumnRenderTooltipProps> = tooltipHostProps => (
+    <TooltipHost {...tooltipHostProps} />
+  );
+
+  return (
+    <Sticky stickyPosition={StickyPositionType.Header} isScrollSynced={true}>
+      {defaultRender!({
+        ...props,
+        onRenderColumnHeaderTooltip
+      })}
+    </Sticky>
+  );
+};
+
+const onRenderDetailsFooter: IRenderFunction<IDetailsFooterProps> = (props, defaultRender) => {
+  if (!props) {
+    return null;
+  }
+
+  return (
+    <Sticky stickyPosition={StickyPositionType.Footer} isScrollSynced={true}>
+      <div className={classNames.row}>
+        <DetailsRow
+          columns={props.columns}
+          item={_footerItem}
+          itemIndex={-1}
+          selection={props.selection}
+          selectionMode={(props.selection && props.selection.mode) || SelectionMode.none}
+          rowWidth={props.rowWidth}
+        />
+      </div>
+    </Sticky>
+  );
+};
 
 export interface IDetailsListBasicExampleItem {
   _id: string;
@@ -102,13 +178,16 @@ this.onButtonClick = this.onButtonClick.bind(this);
             items={items}
             columns={this._columns}
             setKey="set"
-            layoutMode={DetailsListLayoutMode.justified}
+            layoutMode={DetailsListLayoutMode.fixedColumns}
             selection={this._selection}
             selectionPreservedOnEmptyClick={true}
             ariaLabelForSelectionColumn="Toggle selection"
             ariaLabelForSelectAllCheckbox="Toggle selection for all items"
             checkButtonAriaLabel="Row checkbox"
             onItemInvoked={this._onItemInvoked}
+            onRenderDetailsHeader={onRenderDetailsHeader}
+            onRenderDetailsFooter={onRenderDetailsFooter}
+            constrainMode={ConstrainMode.unconstrained}
           />
         </MarqueeSelection>
           <Sticky stickyPosition={StickyPositionType.Footer}>
