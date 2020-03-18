@@ -77,14 +77,19 @@ _primaryClicked = (): void => {
     this.setState({data: data});
   };
 
+  toDate =(dateStr: string | null | undefined): Date | null => {
+    if (!dateStr || isNaN(Date.parse(dateStr))) return;
+
+    return new Date(dateStr);
+  }
+
   render() {
     return (
       <Stack vertical tokens={stackTokens}>
         <TextField label="Firstname" name="firstName" id="firstName" required value={this.state.data.firstName} onChange={this.handleChange}/>
         <TextField label="Lastname" name="lastName" id="firstName" value={this.state.data.lastName} onChange={this.handleChange}/>
         <DatePicker label="Birthdate" name="birthDate" allowTextInput={true} fieldName="birthDate"
-            value={this.state.data.birthDate ? new Date(this.state.data.birthDate): null} 
-            parseDateFromString={this.parseDateFromString}
+            value={this.toDate(this.state.data.birthDate)} 
             onSelectDate={this.handleDateChange}/>
 
          <PrimaryButton

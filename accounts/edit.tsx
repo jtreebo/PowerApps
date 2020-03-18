@@ -70,7 +70,12 @@ _parseDateFromString = (dateStr: string): Date | null => {
     this.setState({data: data});
     
   };
-  
+  toDate =(dateStr: string | null | undefined): Date | null => {
+    if (!dateStr || isNaN(Date.parse(dateStr))) return;
+
+    return new Date(dateStr);
+  }
+
 handleChange(event) {
     let data = this.state.data;
 
@@ -100,8 +105,8 @@ handleChange(event) {
                       label="Start date"
                       isRequired={false}
                       allowTextInput={true}
-                      value={this.state.data.date ? new Date(this.state.data.date): null} 
                       onSelectDate={this.handleDateChange}
+                      value={this.toDate(this.state.data.date)} 
                     />
 
                       <ComboBox 
@@ -179,7 +184,7 @@ handleChange(event) {
                       label="Start date"
                       isRequired={false}
                       allowTextInput={true}
-                      value={this.state.data.date ? new Date(this.state.data.date): null} 
+                      value={this.toDate(this.state.data.date)} 
                       onSelectDate={this.handleDateChange}
                     />
 
