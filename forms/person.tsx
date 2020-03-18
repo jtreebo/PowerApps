@@ -44,7 +44,7 @@ export class Person extends Component<AppProps, AppState> {
       .then(data => {
         let index = Math.floor(Math.random() * Math.floor(5));
         let d = data[index];
-        d.birthDate = new Date(d.birthDate);
+        //d.birthDate = new Date(d.birthDate);
         console.log(data[index]);
         this.setState({ data: data[index] });
       })
@@ -57,26 +57,35 @@ _primaryClicked = (): void => {
   handleChange(event) {
     let data = this.state.data;
 
-    data[event.target.name] = event.target.value;
+    data[event.target.id] = event.target.value;
     this.setState({data: data});
 
         console.log(data);
   }
 
-  handleDateChange(date) {
+  
+  parseDateFromString = (dateStr: string): Date | null => {
+    console.log(dateStr);
+    return new Date(Date.parse(dateStr))
+  };
+
+  handleDateChange = (date: Date | null | undefined): void => {
+    console.log(date);
     let data = this.state.data;
 
     data.birthDate = date;
     this.setState({data: data});
-  }
-
+  };
 
   render() {
     return (
       <Stack vertical tokens={stackTokens}>
-        <TextField label="Firstname" name="firstName" required value={this.state.data.firstName} onChange={this.handleChange}/>
-        <TextField label="Lastname" name="lastName" value={this.state.data.lastName} onChange={this.handleChange}/>
-        <DatePicker label="Birthdate" name="birthDate" allowTextInput={true} value={this.state.data.birthDate} onSelectDate={this.handleDateChange}/>
+        <TextField label="Firstname" name="firstName" id="firstName" required value={this.state.data.firstName} onChange={this.handleChange}/>
+        <TextField label="Lastname" name="lastName" id="firstName" value={this.state.data.lastName} onChange={this.handleChange}/>
+        <DatePicker label="Birthdate" name="birthDate" allowTextInput={true} fieldName="birthDate"
+            value={this.state.data.birthDate ? new Date(this.state.data.birthDate): null} 
+            parseDateFromString={this.parseDateFromString}
+            onSelectDate={this.handleDateChange}/>
 
          <PrimaryButton
           text="Fetch Data"

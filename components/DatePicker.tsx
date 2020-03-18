@@ -45,6 +45,7 @@ export class DatePickerFormatExample extends React.Component<{}, {}> {
   public constructor(props: {}) {
     super(props);
 
+this._onSelectDate = this._onSelectDate.bind(this);
     this.state = {
       firstDayOfWeek: DayOfWeek.Sunday,
       value: null
@@ -62,6 +63,7 @@ export class DatePickerFormatExample extends React.Component<{}, {}> {
           label="Start date"
           isRequired={false}
           allowTextInput={true}
+          onSelectDate={this._onSelectDate}
         />
        
       </div>
@@ -69,6 +71,7 @@ export class DatePickerFormatExample extends React.Component<{}, {}> {
   }
 
   _onSelectDate = (date: Date | null | undefined): void => {
+    console.log(date);
     this.setState({ value: date });
   };
 

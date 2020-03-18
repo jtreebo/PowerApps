@@ -46,7 +46,8 @@ export class DialogBlockingExample extends React.Component<{}, IDialogBlockingEx
 
   constructor(props: {}) {
     super(props);
-this.handleChange = this.handleChange.bind(this);
+    
+    this.handleChange = this.handleChange.bind(this);
     this.handleDateChange = this.handleDateChange.bind(this);
 
     this.state = {
@@ -56,6 +57,20 @@ this.handleChange = this.handleChange.bind(this);
     };
   }
 
+_parseDateFromString = (dateStr: string): Date | null => {
+    
+    return new Date(Date.parse(dateStr))
+  };
+
+  handleDateChange = (date: Date | null | undefined): void => {
+    
+     let data = this.state.data;
+
+    data.date = date;
+    this.setState({data: data});
+    
+  };
+  
 handleChange(event) {
     let data = this.state.data;
 
@@ -65,12 +80,7 @@ handleChange(event) {
         console.log(data);
   }
 
-  handleDateChange(date) {
-    let data = this.state.data;
-
-    data.date = date;
-    this.setState({data: data});
-  }
+ 
 
   private renderDetail() {
     console.log("tab1");
@@ -86,6 +96,14 @@ handleChange(event) {
 
       </Stack.Item>
       <Stack.Item grow>
+                  <DatePicker
+                      label="Start date"
+                      isRequired={false}
+                      allowTextInput={true}
+                      value={this.state.data.date ? new Date(this.state.data.date): null} 
+                      onSelectDate={this.handleDateChange}
+                    />
+
                       <ComboBox 
                         label="Sample subject lines you could add instead"
                         placeholder="Select or type an option"
@@ -157,36 +175,30 @@ handleChange(event) {
           </PivotItem>
           <PivotItem headerText="Views">
             
-<DatePicker
-          label="Start date"
-          isRequired={false}
-          allowTextInput={true}
-          value={this.state.data.date}
-          onSelectDate={this.handleDateChange}
-        />
+            <DatePicker
+                      label="Start date"
+                      isRequired={false}
+                      allowTextInput={true}
+                      value={this.state.data.date ? new Date(this.state.data.date): null} 
+                      onSelectDate={this.handleDateChange}
+                    />
 
           </PivotItem>
-          <PivotItem headerText="Filters">
-            <Label >Pivot #3</Label>
-          </PivotItem>
-        </Pivot>
-<DialogFooter>
+            <PivotItem headerText="Filters">
+              <Label >Pivot #3</Label>
+            </PivotItem>
+          </Pivot>
+        <DialogFooter>
             <PrimaryButton onClick={this._closeDialog} text="Send" />
             <DefaultButton onClick={this._closeDialog} text="Don't send" />
           </DialogFooter>
-
-
-        
-
-          
-         
         </Dialog>
       </div>
     );
   }
+  
 
-
-
+  
 
   private _showDialog = (data: object): void => {
         this.setState({ hideDialog: false, data: data });
