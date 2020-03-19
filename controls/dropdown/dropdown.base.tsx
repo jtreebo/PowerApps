@@ -1,18 +1,55 @@
 import * as React from 'react';
+import { initializeComponentRef } from '@uifabric/utilities';
 import { Dropdown, IDropdown, IDropdownProps, DropdownMenuItemType, IDropdownOption, IDropdownInternalProps, IDropdownState } from 'office-ui-fabric-react/lib/Dropdown';
 
 export interface IXrmDropdownInternalProps extends IDropdownInternalProps {}
 
-export interface IXrmDropdownState extends IDropdownState {}
+export interface IXrmDropdownState extends IDropdownState {
+  options: IDropdownOption[],
+  selectedKey: string
+}
 
 export class XrmDropdownBase extends React.Component<IXrmDropdownInternalProps, IXrmDropdownState>  {
   public static defaultProps = {
     options: [] as any[],
   };
 
+  
+
   constructor(props: IDropdownProps) {
-  super(props);
+    super(props);
+    initializeComponentRef(this);
+
+    let ido: IDropdownOption[] = [];
+    let selectedIndices: number[];
+
+    this.state =  {
+      isOpen: false,
+      hasFocus: false,
+      calloutRenderEdge: undefined,
+      selectedIndices: selectedIndices,
+      options: ido,
+      selectedKey: null
+    };
+    
   }
+
+  componentDidMount() {
+    let ido: IDropdownOption[] = [          
+          { key: 'apple', text: 'Apple'},
+          { key: 'banana', text: 'Banana' },
+          { key: 'grape', text: 'Grape'},
+          { key: 'broccoli', text: 'Broccoli' },
+          { key: 'carrot', text: 'Carrot' },
+          { key: 'lettuce', text: 'Lettuce' }
+        ];
+
+      this.setState({
+        options : ido,
+        selectedKey: "lettuce"
+        });
+  }
+
   public render(): JSX.Element {
     
     const props = this.props;
@@ -45,19 +82,8 @@ export class XrmDropdownBase extends React.Component<IXrmDropdownInternalProps, 
         calloutProps={calloutProps}
         multiSelect={multiSelect}
         disabled={disabled}
-
-       options={[
-          { key: 'fruitsHeader', text: 'Fruits', itemType: DropdownMenuItemType.Header },
-          { key: 'apple', text: 'Apple'},
-          { key: 'banana', text: 'Banana' },
-          { key: 'orange', text: 'Orange', disabled: true },
-          { key: 'grape', text: 'Grape', selected: true  },
-          { key: 'divider_1', text: '-', itemType: DropdownMenuItemType.Divider },
-          { key: 'vegetablesHeader', text: 'Vegetables', itemType: DropdownMenuItemType.Header },
-          { key: 'broccoli', text: 'Broccoli' },
-          { key: 'carrot', text: 'Carrot' },
-          { key: 'lettuce', text: 'Lettuce' }
-        ]}/>
+        selectedKey={this.state.selectedKey}
+       options={this.state.options}/>
     );
   }
 }
