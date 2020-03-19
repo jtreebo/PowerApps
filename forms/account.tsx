@@ -3,7 +3,7 @@ import { render } from 'react-dom';
 import {  DefaultButton,  PrimaryButton,  IStackTokens, } from "office-ui-fabric-react";
 import { TextField, MaskedTextField } from 'office-ui-fabric-react/lib/TextField';
 import { Stack, IStackProps } from 'office-ui-fabric-react/lib/Stack';
-import IAccount from './data/IAccount';
+import { IAccount } from './data/IAccount';
 import { DatePicker, DayOfWeek, IDatePickerStrings } from 'office-ui-fabric-react/lib/DatePicker';
 
 interface AppProps { }
@@ -21,7 +21,7 @@ export class Account extends Component<AppProps, AppState> {
     super(props);
     this.state = {
       name: 'React',
-      data: {}
+      data: accountData
     };
 
     this.handleChange = this.handleChange.bind(this);

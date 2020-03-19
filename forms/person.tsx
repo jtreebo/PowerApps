@@ -3,9 +3,9 @@ import { render } from 'react-dom';
 import {  DefaultButton,  PrimaryButton,  IStackTokens, } from "office-ui-fabric-react";
 import { TextField, MaskedTextField } from 'office-ui-fabric-react/lib/TextField';
 import { Stack, IStackProps } from 'office-ui-fabric-react/lib/Stack';
-import IContact from './data/IContact';
+import { IContact } from './data/IContact';
 import { DatePicker, DayOfWeek, IDatePickerStrings } from 'office-ui-fabric-react/lib/DatePicker';
-
+import { XrmDropdown } from '../controls/dropdown';
 interface AppProps { }
 
 interface AppState {
@@ -95,13 +95,16 @@ _primaryClicked = (): void => {
          <PrimaryButton
           text="Fetch Data"
           onClick={this._primaryClicked}/>
-
+        <XrmDropdown
+          label="Type" required
+          entity="contact"
+          source="familystatuscode"
+          model="familystatuscode"
+          convertToNumber={true}
+        />
          </Stack>
-        
-      
     );
   }
-
 }
 
 
