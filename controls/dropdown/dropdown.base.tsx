@@ -45,13 +45,14 @@ export class XrmDropdownBase extends React.Component<IXrmDropdownInternalProps, 
   }
 
   private onChange = (event: React.FormEvent<HTMLDivElement>, option?: IDropdownOption, index?: number) :void => {
-    debugger;
+    
       console.log("selected");
     console.log(option);
     console.log(index);
+    debugger;
     this.setState({
       selectedKey: option.key
-    })
+    });
   }
 
   public render(): JSX.Element {
