@@ -6,6 +6,7 @@
     "@types/react": "^16.9.24",
     "@types/react-dom": "^16.9.5",
     "@uifabric/example-data": "^7.0.6",
+    "@uifabric/foundation": "^7.5.21",
     "@uifabric/react-hooks": "^7.0.19",
     "@uifabric/utilities": "^7.15.1",
     "office-ui-fabric-react": "7.103.0",

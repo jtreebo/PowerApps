@@ -7,7 +7,7 @@ import { IContact } from './data/IContact';
 import { DatePicker, DayOfWeek, IDatePickerStrings } from 'office-ui-fabric-react/lib/DatePicker';
 import { Dropdown, IDropdown, IDropdownProps, DropdownMenuItemType, IDropdownOption, IDropdownInternalProps, IDropdownState } from 'office-ui-fabric-react/lib/Dropdown';
 
-import { xrm } from '../controls/xrm';
+import { Xrm } from '../controls/xrm';
 import { XrmDropdown } from '../controls/dropdown';
 interface AppProps { }
 
@@ -136,7 +136,7 @@ _primaryClicked = (): void => {
 
   render() {
     return (
-      <xrm entities={entities}>
+      <Xrm entities={entities}>
       <Stack vertical tokens={stackTokens}>
         <TextField label="Firstname" name="firstName" id="firstName" required value={this.state.data.firstName} onChange={this.handleChange}/>
         <TextField label="Lastname" name="lastName" id="firstName" value={this.state.data.lastName} onChange={this.handleChange}/>
@@ -163,7 +163,7 @@ _primaryClicked = (): void => {
           text="Fetch Data"
           onClick={this._primaryClicked}/>
          </Stack>
-         </xrm>
+         </Xrm>
     );
   }
 }
