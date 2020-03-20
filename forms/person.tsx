@@ -92,9 +92,6 @@ _primaryClicked = (): void => {
             value={this.toDate(this.state.data.birthDate)} 
             onSelectDate={this.handleDateChange}/>
 
-         <PrimaryButton
-          text="Fetch Data"
-          onClick={this._primaryClicked}/>
         <XrmDropdown
           label="Type" required
           entity="contact"
@@ -102,6 +99,10 @@ _primaryClicked = (): void => {
           model="familystatuscode"
           convertToNumber={true}
         />
+
+         <PrimaryButton
+          text="Fetch Data"
+          onClick={this._primaryClicked}/>
          </Stack>
     );
   }
