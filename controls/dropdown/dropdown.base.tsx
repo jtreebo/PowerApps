@@ -5,8 +5,7 @@ import { Dropdown, IDropdown, IDropdownProps, DropdownMenuItemType, IDropdownOpt
 export interface IXrmDropdownInternalProps extends IDropdownInternalProps {}
 
 export interface IXrmDropdownState extends IDropdownState {
-  options: IDropdownOption[],
-  selectedKey: string
+  options: IDropdownOption[]
 }
 
 export class XrmDropdownBase extends React.Component<IXrmDropdownInternalProps, IXrmDropdownState>  {
@@ -15,7 +14,7 @@ export class XrmDropdownBase extends React.Component<IXrmDropdownInternalProps, 
     super(props);
     initializeComponentRef(this);
 
-    this.onChange = this.onChange.bind(this);
+    //this.onChange = this.onChange.bind(this);
 
     let ido: IDropdownOption[] = [];
     let selectedIndices: number[];
@@ -25,35 +24,35 @@ export class XrmDropdownBase extends React.Component<IXrmDropdownInternalProps, 
       hasFocus: false,
       calloutRenderEdge: undefined,
       selectedIndices: selectedIndices,
-      options: ido,
-      selectedKey: null
+      options: ido
     };
     
   }
 
-  componentDidMount() {
+  componentWillMount() {
+    console.log("dd will mount");
     let ido: IDropdownOption[] = [          
-          { key: '1', text: 'Apple'},
-          { key: '2', text: 'Banana' },
-          { key: '3', text: 'Grape'}
+          { key: 1, text: 'Apple'},
+          { key: 2, text: 'Banana' },
+          { key: 3, text: 'Grape'}
         ];
 
       this.setState({
-        options : ido,
-        selectedKey: "1"
+        options : ido
         });
   }
 
-  private onChange = (event: React.FormEvent<HTMLDivElement>, option?: IDropdownOption, index?: number) :void => {
-    
-      console.log("selected");
-    console.log(option);
-    console.log(index);
-    debugger;
-    this.setState({
-      selectedKey: option.key
-    });
-  }
+  // private onChange = (event: React.FormEvent<HTMLDivElement>, option?: IDropdownOption, index?: number) :void => {
+  //   console.log("base dd");
+  //     if (option === null) return;
+
+  //   const {onChange,selectedKey} = this.props;
+  //   onChange(event, option, index);
+
+  //     this.setState({
+  //     selectedKey: option.key
+  //   });
+  // }
 
   public render(): JSX.Element {
     
@@ -71,12 +70,14 @@ export class XrmDropdownBase extends React.Component<IXrmDropdownInternalProps, 
       panelProps,
       calloutProps,
       multiSelect,
-      disabled
+      disabled,
+      onChange,
+      selectedKey
     } = props;
 
     return (
       <Dropdown
-      className={className}
+        className={className}
         label={label}
         ariaLabel={ariaLabel}
         required={required}
@@ -87,8 +88,8 @@ export class XrmDropdownBase extends React.Component<IXrmDropdownInternalProps, 
         calloutProps={calloutProps}
         multiSelect={multiSelect}
         disabled={disabled}
-        selectedKey={this.state.selectedKey}        
-        onChange={this.onChange}
+        selectedKey={selectedKey}        
+        onChange={onChange}
        options={this.state.options}/>
     );
   }

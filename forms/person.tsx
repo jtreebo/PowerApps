@@ -5,31 +5,51 @@ import { TextField, MaskedTextField } from 'office-ui-fabric-react/lib/TextField
 import { Stack, IStackProps } from 'office-ui-fabric-react/lib/Stack';
 import { IContact } from './data/IContact';
 import { DatePicker, DayOfWeek, IDatePickerStrings } from 'office-ui-fabric-react/lib/DatePicker';
+import { Dropdown, IDropdown, IDropdownProps, DropdownMenuItemType, IDropdownOption, IDropdownInternalProps, IDropdownState } from 'office-ui-fabric-react/lib/Dropdown';
+
 import { XrmDropdown } from '../controls/dropdown';
 interface AppProps { }
 
 interface AppState {
   name: string;
   data: IContact;
+  selectedKey: any;
   }
 
 const stackTokens: IStackTokens = { childrenGap: 15 };
 const contactData: IContact = {};
+
+const ido: IDropdownOption[] = [          
+          { key: 1, text: 'Apple'},
+          { key: 2, text: 'Banana' },
+          { key: 3, text: 'Grape'}
+        ];
 
 export class Person extends Component<AppProps, AppState> {
   constructor(props) {
     super(props);
     this.state = {
       name: 'React',
-      data: {}
+      data: {
+        accountType: {}
+      },
+      selectedKey: ''
     };
 
     this.handleChange = this.handleChange.bind(this);
     this.handleDateChange = this.handleDateChange.bind(this);
+    this.onChange = this.onChange.bind(this);
+    this.onChange2 = this.onChange2.bind(this);
   }
+
+  componentWillMount() {
+    console.log("will mount");
+    this.getData();
+  }
+
   componentDidMount() {
     console.log("mount");
-    this.getData();
+    //this.getData();
   }
 
   getData() {
@@ -45,11 +65,40 @@ export class Person extends Component<AppProps, AppState> {
         let index = Math.floor(Math.random() * Math.floor(5));
         let d = data[index];
         //d.birthDate = new Date(d.birthDate);
-        console.log(data[index]);
-        this.setState({ data: data[index] });
+        console.log(d);
+        this.setState({ data: d,
+        selectedKey: d.accountType.value });
       })
   };
+private onChange = (event: React.FormEvent<HTMLDivElement>, option?: IDropdownOption, index?: number) :void => {
+  
+        if (option === null) return;
 
+        let d = this.state.data;
+      d.accountType = option;
+        this.setState( {
+          data: d,
+          selectedKey: option.key
+        }
+          
+        );
+
+      console.log(d);
+
+  }
+private onChange2 = (event: React.FormEvent<HTMLDivElement>, option?: IDropdownOption, index?: number) :void => {
+        if (option === null) return;
+
+      let d = this.state.data;
+      d.accountType = option;
+        this.setState( {
+          data: d
+        }
+          
+        );
+
+        console.log(d);
+  }
 _primaryClicked = (): void => {
     this.getData();
   };
@@ -97,8 +146,15 @@ _primaryClicked = (): void => {
           entity="contact"
           source="familystatuscode"
           model="familystatuscode"
-          convertToNumber={true}
+          selectedKey={this.state.selectedKey}    
+          onChange={this.onChange}
         />
+
+        <Dropdown
+        label="TEST"
+        selectedKey={this.state.selectedKey}        
+        onChange={this.onChange}
+        options={ido}/>
 
          <PrimaryButton
           text="Fetch Data"
