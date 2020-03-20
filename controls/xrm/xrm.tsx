@@ -1,13 +1,41 @@
 import React, { FunctionComponent } from 'react'; 
-import { styled } from '@uifabric/utilities';
-import { createComponent } from '@uifabric/foundation';
-import { xrm } from './xrm.base';
+import { createComponent, IViewComponent } from '@uifabric/foundation';
 
-type CardProps = {
-  title: string,
-  paragraph: string
+
+export interface IXrmProps {
+  entities: string[]
 }
 
-export const Xrm: FunctionComponent<CardProps> = ({ title, paragraph }) => <aside>
-  
-</aside>
+const XrmView: IViewComponent<IXrmProps> = props => {
+  const { children, entities } = props;
+
+  if (entities.length > 0) {
+    entities.forEach(function(entity) {
+    fetch('https://next.json-generator.com/api/json/get/EJOeQAKHO')
+      .then(response => {
+        if (response.ok) {
+          return response.json();
+        } else {
+          throw new Error('Something went wrong ...');
+        }
+      })
+      .then(data => {
+        console.log("metadata");
+        window.xrm = window.xrm || {};
+        window.xrm.metadata = window.xrm.metadata || {};
+        window.xrm.metadata[entity] = JSON.parse(data);
+      })
+
+    });
+  }
+
+  if (React.Children.count(children) < 1) {
+    return null;
+  }
+
+  return <div>{children}</div>;
+};
+
+export const Xrm: React.FunctionComponent<{}> = createComponent(XrmView);
+
+export default Xrm;

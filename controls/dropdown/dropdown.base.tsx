@@ -2,7 +2,10 @@ import * as React from 'react';
 import { initializeComponentRef } from '@uifabric/utilities';
 import { Dropdown, IDropdown, IDropdownProps, DropdownMenuItemType, IDropdownOption, IDropdownInternalProps, IDropdownState } from 'office-ui-fabric-react/lib/Dropdown';
 
-export interface IXrmDropdownInternalProps extends IDropdownInternalProps {}
+export interface IXrmDropdownInternalProps extends IDropdownInternalProps {
+  entity: string;
+  source: string;
+}
 
 export interface IXrmDropdownState extends IDropdownState {
   options: IDropdownOption[]
@@ -10,11 +13,9 @@ export interface IXrmDropdownState extends IDropdownState {
 
 export class XrmDropdownBase extends React.Component<IXrmDropdownInternalProps, IXrmDropdownState>  {
    
-  constructor(props: IDropdownProps) {
+  constructor(props: IXrmDropdownInternalProps) {
     super(props);
     initializeComponentRef(this);
-
-    //this.onChange = this.onChange.bind(this);
 
     let ido: IDropdownOption[] = [];
     let selectedIndices: number[];
@@ -30,6 +31,19 @@ export class XrmDropdownBase extends React.Component<IXrmDropdownInternalProps, 
   }
 
   componentWillMount() {
+    const {entity, source} = this.props;
+
+    let intervalId = setInterval(function() {
+      if (window.xrm && window.xrm.metadata && window.xrm.metadata[entity]) {
+        clearInterval(intervalId);
+
+        debugger;
+
+
+
+      }
+    }, 400);
+
     console.log("dd will mount");
     let ido: IDropdownOption[] = [          
           { key: 1, text: 'Apple'},
