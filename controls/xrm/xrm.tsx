@@ -23,7 +23,7 @@ const XrmView: IViewComponent<IXrmProps> = props => {
         console.log("metadata");
         window.xrm = window.xrm || {};
         window.xrm.metadata = window.xrm.metadata || {};
-        window.xrm.metadata[entity] = JSON.parse(data);
+        window.xrm.metadata[entity] = data;
       })
 
     });

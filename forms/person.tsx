@@ -101,6 +101,7 @@ private onChange2 = (event: React.FormEvent<HTMLDivElement>, option?: IDropdownO
 
         console.log(d);
   }
+  
 _primaryClicked = (): void => {
     this.getData();
   };
@@ -145,10 +146,19 @@ _primaryClicked = (): void => {
             onSelectDate={this.handleDateChange}/>
 
         <XrmDropdown
-          label="Type" required
+          label="Marital Status" required
           entity="contact"
           source="familystatuscode"
           model="familystatuscode"
+          selectedKey={this.state.selectedKey}    
+          onChange={this.onChange}
+        />
+
+        <XrmDropdown
+          label="Payment Terms" 
+          entity="contact"
+          source="paymenttermscode"
+          model="paymenttermscode"
           selectedKey={this.state.selectedKey}    
           onChange={this.onChange}
         />

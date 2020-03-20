@@ -9,11 +9,12 @@
     "@uifabric/foundation": "^7.5.21",
     "@uifabric/react-hooks": "^7.0.19",
     "@uifabric/utilities": "^7.15.1",
-    "node-enumerable": "^5.0.1",
+    "linq-to-typescript": "^6.0.1",
     "office-ui-fabric-react": "7.103.0",
     "react": "^16.13.0",
     "react-dom": "^16.13.0",
-    "react-router-dom": "^5.1.2"
+    "react-router-dom": "^5.1.2",
+    "tslib": ">=1.10.0"
   },
   "scripts": {
     "start": "react-scripts-ts start",
