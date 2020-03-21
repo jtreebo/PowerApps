@@ -140,7 +140,7 @@ _checkData = (): void => {
 
   render() {
     return (
-      <Xrm entities={entities}>
+      <Xrm optionSets={entities}>
       <Stack vertical tokens={stackTokens}>
         <TextField label="Firstname" name="firstName" id="firstName" required value={this.state.data.firstName} onChange={this.handleChange}/>
         <TextField label="Lastname" name="lastName" id="lastName" value={this.state.data.lastName} onChange={this.handleChange}/>

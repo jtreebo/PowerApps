@@ -3,14 +3,14 @@ import { createComponent, IViewComponent } from '@uifabric/foundation';
 
 
 export interface IXrmProps {
-  entities: string[]
+  optionSets: string[]
 }
 
 const XrmView: IViewComponent<IXrmProps> = props => {
-  const { children, entities } = props;
+  const { children, optionSets } = props;
 
-  if (entities.length > 0) {
-    entities.forEach(function(entity) {
+  if (optionSets.length > 0) {
+    optionSets.forEach(function(entity) {
     fetch('https://next.json-generator.com/api/json/get/EJOeQAKHO')
       .then(response => {
         if (response.ok) {
