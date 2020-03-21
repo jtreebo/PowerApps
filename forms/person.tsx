@@ -15,6 +15,7 @@ interface AppState {
   name: string;
   data: IContact;
   selectedKey: any;
+  selectedKey1: any;
   }
 
 const entities: string[] = ["contact", "account"]
@@ -32,10 +33,9 @@ export class Person extends Component<AppProps, AppState> {
     super(props);
     this.state = {
       name: 'React',
-      data: {
-        accountType: {}
-      },
-      selectedKey: ''
+      data: {},
+      selectedKey: '',
+      selectedKey1: ''
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -62,16 +62,20 @@ export class Person extends Component<AppProps, AppState> {
       })
       .then(data => {
         let index = Math.floor(Math.random() * Math.floor(5));
+        const d = data[index];
         this.setState({ 
-          data: data[index] });
+          data: d,
+          selectedKey: d.fruit.key,
+          selectedKey1: d.familystatuscode.value
+          });
       })
   };
 
   private onChange = (event: React.FormEvent<HTMLDivElement>, option?: IDropdownOption, index?: number) :void => {
+   
     if (option === null) return;
-
-     var d = this.state.data;
-     d.fruit = option;
+     let d = this.state.data;
+     d[event.target.id] = option;
      this.setState(
        {
          data: d,
@@ -123,7 +127,9 @@ _checkData = (): void => {
       <Xrm entities={entities}>
       <Stack vertical tokens={stackTokens}>
         <TextField label="Firstname" name="firstName" id="firstName" required value={this.state.data.firstName} onChange={this.handleChange}/>
-        <TextField label="Lastname" name="lastName" id="firstName" value={this.state.data.lastName} onChange={this.handleChange}/>
+        <TextField label="Lastname" name="lastName" id="lastName" value={this.state.data.lastName} onChange={this.handleChange}/>
+        
+
         <DatePicker label="Birthdate" name="birthDate" allowTextInput={true} fieldName="birthDate"
             value={this.toDate(this.state.data.birthDate)} 
             onSelectDate={this.handleDateChange}/>
@@ -133,7 +139,6 @@ _checkData = (): void => {
           entity="contact"
           source="familystatuscode"
           model="familystatuscode"
-          
           data={this.state.data}
         />
 
@@ -147,6 +152,7 @@ _checkData = (): void => {
 
 <Dropdown
           label="Test" 
+          id="fruit"
           options={ido}
           selectedKey={this.state.selectedKey}
           onChange={this.onChange}

@@ -68,10 +68,32 @@ export class XrmDropdownBase extends React.Component<IXrmDropdownInternalProps, 
         self.setState({
           options : sourceOptions
           });
-
         }
     }, 400);
   }
+
+  componentDidMount() {
+    const {entity, source, model, data} = this.props;
+
+  }
+componentWillReceiveProps(nextProps, nextState) {
+  const {entity, source, model, data} = this.props;
+
+    if (!data || !model || !data[model]) return;
+    this.setState(
+      {
+        selectedKey: data[model].value
+      }
+    );
+
+
+    
+}
+
+
+  updateAndNotify = () => {
+      console.log("updateAndNotify");
+    }
 
   private defaultSelectedKey = ():void => {
     debugger;
@@ -79,9 +101,13 @@ export class XrmDropdownBase extends React.Component<IXrmDropdownInternalProps, 
 
    private onChange = (event: React.FormEvent<HTMLDivElement>, option?: IDropdownOption, index?: number) :void => {
 
-    if (option === null) return;
+    if (option === null) {
+     this.setState(
+       {selectedKey: null}
+     );
+      return;}
 
-     const {onSelect, selectedKey, model, data} = this.props;
+     const {onSelect, selectedKey, model, data, onChange} = this.props;
 
      this.setState(
        {selectedKey: option.key}
@@ -97,6 +123,9 @@ export class XrmDropdownBase extends React.Component<IXrmDropdownInternalProps, 
 
      if (onSelect) {
         onSelect(option, index, model);
+     }
+     if (onChange) {
+       onChange(event, option, index);
      }
      
    }
