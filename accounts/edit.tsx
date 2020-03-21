@@ -194,8 +194,8 @@ handleChange(event) {
             </PivotItem>
           </Pivot>
         <DialogFooter>
-            <PrimaryButton onClick={this._closeDialog} text="Send" />
-            <DefaultButton onClick={this._closeDialog} text="Don't send" />
+            <PrimaryButton onClick={this._closeDialog} text="OK" />
+            <DefaultButton onClick={this._closeDialog} text="Close" />
           </DialogFooter>
         </Dialog>
       </div>
