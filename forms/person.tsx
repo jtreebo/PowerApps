@@ -87,8 +87,7 @@ export class Person extends Component<AppProps, AppState> {
     
   };
 
-  private onXrmDropdownChange = (event: React.FormEvent<Element>, option?: IDropdownOption, index?: number) :void => {
-
+  private onXrmControlChange = (event: React.FormEvent<Element>, option?: IDropdownOption, index?: number) :void => {
     // update data
      this.setState({});
   }
@@ -96,6 +95,7 @@ export class Person extends Component<AppProps, AppState> {
   private onChange = (event: React.FormEvent<Element>, option?: IDropdownOption, index?: number) :void => {
    
     if (option === null) return;
+    
      let d = this.state.data;
      if (event && event.target && event.target.id) {
        d[event.target.id] = option;
@@ -173,7 +173,7 @@ _checkData = (): void => {
           optionSet="familystatuscode"
           attribute="familystatuscode"
           data={this.state.data}
-          onChange={this.onXrmDropdownChange}
+          onChange={this.onXrmControlChange}
         />
 
         <XrmDropdown
@@ -183,7 +183,7 @@ _checkData = (): void => {
           optionSet="paymenttermscode"
           attribute="paymenttermscode"
           data={this.state.data}
-          onChange={this.onXrmDropdownChange}
+          onChange={this.onXrmControlChange}
         />
 
 <Dropdown
