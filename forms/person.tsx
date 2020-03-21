@@ -15,7 +15,6 @@ interface AppState {
   name: string;
   data: IContact;
   selectedKey: any;
-  selectedKey1: any;
   }
 
 const entities: string[] = ["contact", "account"]
@@ -34,8 +33,7 @@ export class Person extends Component<AppProps, AppState> {
     this.state = {
       name: 'React',
       data: {},
-      selectedKey: '',
-      selectedKey1: ''
+      selectedKey: ''
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -44,7 +42,11 @@ export class Person extends Component<AppProps, AppState> {
   }
 
   componentWillMount() {
-    this.getData();
+    var self = this;
+    this.getData().then( () => {
+        self.forceUpdate();
+    });
+
   }
 
   componentDidMount() {
@@ -52,12 +54,16 @@ export class Person extends Component<AppProps, AppState> {
   }
 
   getData() {
-    fetch('https://next.json-generator.com/api/json/get/4J94VS8r_')
+
+    var getDate = new Promise<boolean>((resolve, reject) => {
+  
+
+      fetch('https://next.json-generator.com/api/json/get/4J94VS8r_')
       .then(response => {
         if (response.ok) {
           return response.json();
         } else {
-          throw new Error('Something went wrong ...');
+          reject('Something went wrong ...');
         }
       })
       .then(data => {
@@ -65,10 +71,20 @@ export class Person extends Component<AppProps, AppState> {
         const d = data[index];
         this.setState({ 
           data: d,
-          selectedKey: d.fruit.key,
-          selectedKey1: d.familystatuscode.value
+          selectedKey: d.fruit.key
+
           });
-      })
+
+          resolve();
+      });
+
+
+    });
+  
+
+  return getDate;
+
+    
   };
 
   private onChange = (event: React.FormEvent<HTMLDivElement>, option?: IDropdownOption, index?: number) :void => {
@@ -137,16 +153,16 @@ _checkData = (): void => {
         <XrmDropdown
           label="Marital Status" required
           entity="contact"
-          source="familystatuscode"
-          model="familystatuscode"
+          optionSet="familystatuscode"
+          attribute="familystatuscode"
           data={this.state.data}
         />
 
         <XrmDropdown
           label="Payment Terms" 
           entity="contact"
-          source="paymenttermscode"
-          model="paymenttermscode"
+          optionSet="paymenttermscode"
+          attribute="paymenttermscode"
           data={this.state.data}
         />
 

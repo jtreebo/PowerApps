@@ -5,8 +5,8 @@ import { from } from "linq-to-typescript"
 
 export interface IXrmDropdownInternalProps extends IDropdownInternalProps {
   entity: string;
-  source: string;
-  model: string;
+  optionSet: string;
+  attribute: string;
   onSelect: any;
   data:any;
 }
@@ -39,7 +39,7 @@ export class XrmDropdownBase extends React.Component<IXrmDropdownInternalProps, 
   }
 
   componentWillMount() {
-    const {entity, source, required} = this.props;
+    const {entity, optionSet, required} = this.props;
     const self = this;
 
     let intervalId = setInterval(function() {
@@ -52,7 +52,7 @@ export class XrmDropdownBase extends React.Component<IXrmDropdownInternalProps, 
           sourceOptions.push({});
         }
         metaData.value.forEach(function(v) {
-          if (v.LogicalName === source) {
+          if (v.LogicalName === optionSet) {
             var options = v.OptionSet.Options;
             options.forEach(function(option) {
                 let label = option.Label.LocalizedLabels[0].Label;
@@ -73,16 +73,16 @@ export class XrmDropdownBase extends React.Component<IXrmDropdownInternalProps, 
   }
 
   componentDidMount() {
-    const {entity, source, model, data} = this.props;
+    const {entity, optionSet, attribute, data} = this.props;
 
   }
 componentWillReceiveProps(nextProps, nextState) {
-  const {entity, source, model, data} = this.props;
+  const {entity, optionSet, attribute, data} = this.props;
 
-    if (!data || !model || !data[model]) return;
+    if (!data || !attribute || !data[attribute]) return;
     this.setState(
       {
-        selectedKey: data[model].value
+        selectedKey: data[attribute].value
       }
     );
 
@@ -107,14 +107,14 @@ componentWillReceiveProps(nextProps, nextState) {
      );
       return;}
 
-     const {onSelect, selectedKey, model, data, onChange} = this.props;
+     const {onSelect, selectedKey, attribute, data, onChange} = this.props;
 
      this.setState(
        {selectedKey: option.key}
      );
 
     if (data) {
-     data[model] = {
+     data[attribute] = {
       value: option.key,
       label: option.text
      };
@@ -122,7 +122,7 @@ componentWillReceiveProps(nextProps, nextState) {
     }
 
      if (onSelect) {
-        onSelect(option, index, model);
+        onSelect(option, index, attribute);
      }
      if (onChange) {
        onChange(event, option, index);
@@ -150,7 +150,7 @@ componentWillReceiveProps(nextProps, nextState) {
       onChange,
       defaultSelectedKey,
       selectedKey,
-      model
+      attribute
     } = props;
 
 
