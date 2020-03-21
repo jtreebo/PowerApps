@@ -41,16 +41,13 @@ export class Person extends Component<AppProps, AppState> {
     this.handleChange = this.handleChange.bind(this);
     this.handleDateChange = this.handleDateChange.bind(this);
     this.onChange = this.onChange.bind(this);
-    this.onChange2 = this.onChange2.bind(this);
   }
 
   componentWillMount() {
-    console.log("will mount");
     this.getData();
   }
 
   componentDidMount() {
-    console.log("mount");
     //this.getData();
   }
 
@@ -65,47 +62,38 @@ export class Person extends Component<AppProps, AppState> {
       })
       .then(data => {
         let index = Math.floor(Math.random() * Math.floor(5));
-        let d = data[index];
-        //d.birthDate = new Date(d.birthDate);
-        console.log(d);
-        this.setState({ data: d,
-        selectedKey: d.accountType.value });
+        this.setState({ 
+          data: data[index] });
       })
   };
-private onChange = (event: React.FormEvent<HTMLDivElement>, option?: IDropdownOption, index?: number) :void => {
-  
-        if (option === null) return;
 
-        let d = this.state.data;
-      d.accountType = option;
-        this.setState( {
-          data: d,
-          selectedKey: option.key
-        }
-          
-        );
+  private onChange = (event: React.FormEvent<HTMLDivElement>, option?: IDropdownOption, index?: number) :void => {
+    if (option === null) return;
 
-      console.log(d);
+     var d = this.state.data;
+     d.fruit = option;
+     this.setState(
+       {
+         data: d,
+         selectedKey: option.key}
+     );
 
   }
-private onChange2 = (event: React.FormEvent<HTMLDivElement>, option?: IDropdownOption, index?: number) :void => {
-        if (option === null) return;
 
-      let d = this.state.data;
-      d.accountType = option;
-        this.setState( {
-          data: d
-        }
-          
-        );
-
-        console.log(d);
-  }
+private onSelect = (option?: IDropdownOption, index?: number, model?: string) :void => {
   
+        if (option === null) return;
+         let d = this.state.data;
+  }
+
 _primaryClicked = (): void => {
     this.getData();
   };
 
+_checkData = (): void => {
+     let d = this.state.data;
+     console.log(d);
+  };
   handleChange(event) {
     let data = this.state.data;
 
@@ -116,11 +104,6 @@ _primaryClicked = (): void => {
   }
 
   
-  parseDateFromString = (dateStr: string): Date | null => {
-    console.log(dateStr);
-    return new Date(Date.parse(dateStr))
-  };
-
   handleDateChange = (date: Date | null | undefined): void => {
     console.log(date);
     let data = this.state.data;
@@ -150,8 +133,8 @@ _primaryClicked = (): void => {
           entity="contact"
           source="familystatuscode"
           model="familystatuscode"
-          selectedKey={this.state.selectedKey}    
-          onChange={this.onChange}
+          
+          data={this.state.data}
         />
 
         <XrmDropdown
@@ -159,21 +142,32 @@ _primaryClicked = (): void => {
           entity="contact"
           source="paymenttermscode"
           model="paymenttermscode"
-          selectedKey={this.state.selectedKey}    
-          onChange={this.onChange}
+          data={this.state.data}
         />
 
-        <Dropdown
-        label="TEST"
-        selectedKey={this.state.selectedKey}        
-        onChange={this.onChange}
-        options={ido}/>
-
+<Dropdown
+          label="Test" 
+          options={ido}
+          selectedKey={this.state.selectedKey}
+          onChange={this.onChange}
+        />
+        
+      <Stack horizontal tokens={stackTokens}>
+      <Stack.Item>
          <PrimaryButton
           text="Fetch Data"
           onClick={this._primaryClicked}/>
+      </Stack.Item>
+      <Stack.Item>
+<PrimaryButton
+          text="Check Data"
+          onClick={this._checkData}/>
+      </Stack.Item>
+      </Stack>
+
          </Stack>
          </Xrm>
+         
     );
   }
 }

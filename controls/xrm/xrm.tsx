@@ -20,12 +20,10 @@ const XrmView: IViewComponent<IXrmProps> = props => {
         }
       })
       .then(data => {
-        console.log("metadata");
         window.xrm = window.xrm || {};
         window.xrm.metadata = window.xrm.metadata || {};
         window.xrm.metadata[entity] = data;
       })
-
     });
   }
 
