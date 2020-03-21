@@ -11,7 +11,7 @@ import { DetailsList,
   DetailsRow } from 'office-ui-fabric-react/lib/DetailsList';
 import { MarqueeSelection } from 'office-ui-fabric-react/lib/MarqueeSelection';
 import { Fabric } from 'office-ui-fabric-react/lib/Fabric';
-import { mergeStyles } from 'office-ui-fabric-react/lib/Styling';
+import { mergeStyles, mergeStyleSets } from 'office-ui-fabric-react/lib/Styling';
 import { Toolbar } from './toolbar';
 import  { DialogBlockingExample } from './edit';
 import { ContextualMenuItem, IContextualMenuItem } from 'office-ui-fabric-react/lib/ContextualMenuItem';
@@ -19,7 +19,7 @@ import { ScrollablePane, ScrollbarVisibility } from 'office-ui-fabric-react/lib/
 import { Sticky, StickyPositionType } from 'office-ui-fabric-react/lib/Sticky';
 import { IRenderFunction } from 'office-ui-fabric-react/lib/Utilities';
 import { TooltipHost } from 'office-ui-fabric-react/lib/Tooltip';
-import { mergeStyleSets } from 'office-ui-fabric-react/lib/Styling';
+
 
 const exampleChildClass = mergeStyles({
   display: 'block',
@@ -178,13 +178,10 @@ this.onButtonClick = this.onButtonClick.bind(this);
           <DetailsList
             items={items}
             columns={this._columns}
-            setKey="set"
             layoutMode={DetailsListLayoutMode.fixedColumns}
             selection={this._selection}
+            selectionMode={1}
             selectionPreservedOnEmptyClick={true}
-            ariaLabelForSelectionColumn="Toggle selection"
-            ariaLabelForSelectAllCheckbox="Toggle selection for all items"
-            checkButtonAriaLabel="Row checkbox"
             onItemInvoked={this._onItemInvoked}
             onRenderDetailsHeader={onRenderDetailsHeader}
             onRenderDetailsFooter={onRenderDetailsFooter}

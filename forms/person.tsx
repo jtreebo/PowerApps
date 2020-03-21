@@ -138,7 +138,7 @@ _checkData = (): void => {
     return new Date(dateStr);
   }
 
-  render() {
+   render() {
     return (
       <Xrm optionSets={entities}>
       <Stack vertical tokens={stackTokens}>
