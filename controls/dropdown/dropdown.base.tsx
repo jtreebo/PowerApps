@@ -7,7 +7,6 @@ export interface IXrmDropdownInternalProps extends IDropdownInternalProps {
   entity: string;
   optionSet: string;
   attribute: string;
-  onSelect: any;
   data:any;
 }
 
@@ -76,7 +75,8 @@ export class XrmDropdownBase extends React.Component<IXrmDropdownInternalProps, 
     const {entity, optionSet, attribute, data} = this.props;
 
   }
-componentWillReceiveProps(nextProps, nextState) {
+
+  componentWillReceiveProps(nextProps, nextState) {
   const {entity, optionSet, attribute, data} = this.props;
 
     if (!data || !attribute || !data[attribute]) return;
@@ -85,18 +85,6 @@ componentWillReceiveProps(nextProps, nextState) {
         selectedKey: data[attribute].value
       }
     );
-
-
-    
-}
-
-
-  updateAndNotify = () => {
-      console.log("updateAndNotify");
-    }
-
-  private defaultSelectedKey = ():void => {
-    debugger;
   }
 
    private onChange = (event: React.FormEvent<HTMLDivElement>, option?: IDropdownOption, index?: number) :void => {
@@ -107,27 +95,23 @@ componentWillReceiveProps(nextProps, nextState) {
      );
       return;}
 
-     const {onSelect, selectedKey, attribute, data, onChange} = this.props;
+     const {selectedKey, id, data, onChange} = this.props;
 
      this.setState(
        {selectedKey: option.key}
      );
 
     if (data) {
-     data[attribute] = {
+     data[id] = {
       value: option.key,
       label: option.text
      };
 
     }
 
-     if (onSelect) {
-        onSelect(option, index, attribute);
-     }
      if (onChange) {
        onChange(event, option, index);
      }
-     
    }
 
   public render(): JSX.Element {
@@ -148,14 +132,15 @@ componentWillReceiveProps(nextProps, nextState) {
       multiSelect,
       disabled,
       onChange,
-      defaultSelectedKey,
       selectedKey,
-      attribute
+      attribute,
+      id
     } = props;
 
 
     return (
       <Dropdown
+        id={id}
         className={className}
         label={label}
         ariaLabel={ariaLabel}

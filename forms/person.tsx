@@ -43,7 +43,12 @@ export class Person extends Component<AppProps, AppState> {
 
   componentWillMount() {
     var self = this;
-    this.getData().then( () => {
+    this.getData().then( (data) => {
+              this.setState({ 
+          data: data,
+          selectedKey: data.fruit.key
+          });
+
         self.forceUpdate();
     });
 
@@ -69,13 +74,8 @@ export class Person extends Component<AppProps, AppState> {
       .then(data => {
         let index = Math.floor(Math.random() * Math.floor(5));
         const d = data[index];
-        this.setState({ 
-          data: d,
-          selectedKey: d.fruit.key
 
-          });
-
-          resolve();
+          resolve(d);
       });
 
 
@@ -87,27 +87,37 @@ export class Person extends Component<AppProps, AppState> {
     
   };
 
-  private onChange = (event: React.FormEvent<HTMLDivElement>, option?: IDropdownOption, index?: number) :void => {
+  private onXrmDropdownChange = (event: React.FormEvent<Element>, option?: IDropdownOption, index?: number) :void => {
+
+    // update data
+     this.setState({});
+  }
+
+  private onChange = (event: React.FormEvent<Element>, option?: IDropdownOption, index?: number) :void => {
    
     if (option === null) return;
      let d = this.state.data;
-     d[event.target.id] = option;
+     if (event && event.target && event.target.id) {
+       d[event.target.id] = option;
+     }
+     
      this.setState(
        {
-         data: d,
-         selectedKey: option.key}
+         data: d
+         }
      );
-
-  }
-
-private onSelect = (option?: IDropdownOption, index?: number, model?: string) :void => {
-  
-        if (option === null) return;
-         let d = this.state.data;
   }
 
 _primaryClicked = (): void => {
-    this.getData();
+    var self = this;
+    this.getData().then( (data) => {
+              this.setState({ 
+          data: data,
+          selectedKey: data.fruit.key
+          });
+
+        self.forceUpdate();
+    });
   };
 
 _checkData = (): void => {
@@ -119,8 +129,6 @@ _checkData = (): void => {
 
     data[event.target.id] = event.target.value;
     this.setState({data: data});
-
-        console.log(data);
   }
 
   
@@ -140,30 +148,42 @@ _checkData = (): void => {
 
    render() {
     return (
-      <Xrm optionSets={entities}>
-      <Stack vertical tokens={stackTokens}>
+      <div>
+      <Xrm optionSets={entities} />
+      <Stack vertical tokens={stackTokens} grow>
+      <Stack horizontal tokens={stackTokens}>
+        <Stack.Item grow>
         <TextField label="Firstname" name="firstName" id="firstName" required value={this.state.data.firstName} onChange={this.handleChange}/>
+        </Stack.Item>
+        <Stack.Item grow>
         <TextField label="Lastname" name="lastName" id="lastName" value={this.state.data.lastName} onChange={this.handleChange}/>
-        
-
+        </Stack.Item>
+        <Stack.Item grow>
         <DatePicker label="Birthdate" name="birthDate" allowTextInput={true} fieldName="birthDate"
             value={this.toDate(this.state.data.birthDate)} 
             onSelectDate={this.handleDateChange}/>
-
+        </Stack.Item>
+        
+      </Stack>
+        
         <XrmDropdown
           label="Marital Status" required
           entity="contact"
+          id="familystatuscode"
           optionSet="familystatuscode"
           attribute="familystatuscode"
           data={this.state.data}
+          onChange={this.onXrmDropdownChange}
         />
 
         <XrmDropdown
           label="Payment Terms" 
           entity="contact"
+          id="paymenttermscode"
           optionSet="paymenttermscode"
           attribute="paymenttermscode"
           data={this.state.data}
+          onChange={this.onXrmDropdownChange}
         />
 
 <Dropdown
@@ -174,7 +194,7 @@ _checkData = (): void => {
           onChange={this.onChange}
         />
         
-      <Stack horizontal tokens={stackTokens}>
+      <Stack horizontal tokens={stackTokens} horizontalAlign="end">
       <Stack.Item>
          <PrimaryButton
           text="Fetch Data"
@@ -186,10 +206,12 @@ _checkData = (): void => {
           onClick={this._checkData}/>
       </Stack.Item>
       </Stack>
-
+<Stack>
+</Stack>
+<pre>{JSON.stringify(this.state.data, null, 2) }</pre>
          </Stack>
-         </Xrm>
-         
+
+</div>         
     );
   }
 }
