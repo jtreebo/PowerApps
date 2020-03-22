@@ -7,8 +7,8 @@ import { IContact } from './data/IContact';
 import { DatePicker, DayOfWeek, IDatePickerStrings } from 'office-ui-fabric-react/lib/DatePicker';
 import { Dropdown, IDropdown, IDropdownProps, DropdownMenuItemType, IDropdownOption, IDropdownInternalProps, IDropdownState } from 'office-ui-fabric-react/lib/Dropdown';
 
-import { Xrm } from '../controls/xrm';
-import { XrmDropdown } from '../controls/dropdown';
+import { Metadata } from '../xrm/metadata';
+import { XrmDropdown } from '../xrm/components/dropdown';
 
 interface AppProps { }
 

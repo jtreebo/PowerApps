@@ -34,6 +34,6 @@ const XrmView: IViewComponent<IXrmProps> = props => {
   return <div>{children}</div>;
 };
 
-export const Xrm: React.FunctionComponent<{}> = createComponent(XrmView);
+export const Metadata: React.FunctionComponent<{}> = createComponent(XrmView);
 
-export default Xrm;
+export default Metadata;

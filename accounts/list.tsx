@@ -19,7 +19,7 @@ import { ScrollablePane, ScrollbarVisibility } from 'office-ui-fabric-react/lib/
 import { Sticky, StickyPositionType } from 'office-ui-fabric-react/lib/Sticky';
 import { IRenderFunction } from 'office-ui-fabric-react/lib/Utilities';
 import { TooltipHost } from 'office-ui-fabric-react/lib/Tooltip';
-import { Paging } from '../controls/paging'
+import { Paging } from '../xrm/components/paging';
 
 const exampleChildClass = mergeStyles({
   display: 'block',
