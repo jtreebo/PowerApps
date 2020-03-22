@@ -13,7 +13,7 @@ import { MarqueeSelection } from 'office-ui-fabric-react/lib/MarqueeSelection';
 import { Fabric } from 'office-ui-fabric-react/lib/Fabric';
 import { mergeStyles, mergeStyleSets } from 'office-ui-fabric-react/lib/Styling';
 import { Toolbar } from './toolbar';
-import  { DialogBlockingExample } from './edit';
+import  { EditAccountForm } from './edit';
 import { ContextualMenuItem, IContextualMenuItem } from 'office-ui-fabric-react/lib/ContextualMenuItem';
 import { ScrollablePane, ScrollbarVisibility } from 'office-ui-fabric-react/lib/ScrollablePane';
 import { Sticky, StickyPositionType } from 'office-ui-fabric-react/lib/Sticky';
@@ -96,7 +96,7 @@ export class List extends React.Component<{}, IDetailsListBasicExampleState> {
   private _selection: Selection;
   private _allItems: IDetailsListBasicExampleItem[];
   private _columns: IColumn[];
-  private _dialog: DialogBlockingExample;
+  private _dialog: EditAccountForm;
 
   constructor(props: {}) {
     super(props);
@@ -109,7 +109,12 @@ this.onButtonClick = this.onButtonClick.bind(this);
       { key: 'company', name: 'Company', fieldName: 'company', minWidth: 100, maxWidth: 200, isResizable: true },
       { key: 'email', name: 'Email', fieldName: 'email', minWidth: 100, maxWidth: 200, isResizable: true },
       { key: 'phone', name: 'Phone', fieldName: 'phone', minWidth: 100, maxWidth: 200, isResizable: true },
-      { key: 'address', name: 'Address', fieldName: 'address', minWidth: 100, maxWidth: 200, isResizable: true }
+      { key: 'address', name: 'Address', fieldName: 'address', minWidth: 100, maxWidth: 200, isResizable: true },
+      { key: 'date', name: 'Date', fieldName: 'date', minWidth: 100, maxWidth: 200, isResizable: true,
+      onRender: (item: any) => {
+          
+          return <span>{this.toDate(item.date)}</span>;
+        } }
     ];
 
     this.state = {
@@ -139,6 +144,12 @@ this.onButtonClick = this.onButtonClick.bind(this);
       })
   };
 
+  private toDate (dateStr: string | null | undefined): Date | null | string {
+    if (!dateStr || isNaN(Date.parse(dateStr))) return "";
+    var d = new Date(dateStr);
+    return d.toDateString();
+  };
+
   private onButtonClick(key: string) {
     const selectionCount = this._selection.getSelectedCount();
     if (selectionCount === 0) return;
@@ -157,7 +168,7 @@ this.onButtonClick = this.onButtonClick.bind(this);
     return (
       <Fabric>
 
-      <DialogBlockingExample  ref={ref => (this._dialog = ref)}  />
+      <EditAccountForm  ref={ref => (this._dialog = ref)}  />
 <ScrollablePane scrollbarVisibility={ScrollbarVisibility.auto}>
 <Sticky stickyPosition={StickyPositionType.Header}>
             <Toolbar onButtonClick={this.onButtonClick} />

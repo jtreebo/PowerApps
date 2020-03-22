@@ -150,7 +150,7 @@ _checkData = (): void => {
    render() {
     return (
       <div>
-      <Xrm optionSets={entities} />
+      <Metadata optionSets={entities} />
       <Stack vertical tokens={stackTokens} grow>
       <Stack horizontal tokens={stackTokens}>
         <Stack.Item grow>

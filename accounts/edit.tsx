@@ -42,7 +42,7 @@ const INITIAL_OPTIONS: IComboBoxOption[] = [
 const stackTokens: IStackTokens = { childrenGap: 10 };
  
 
-export class DialogBlockingExample extends React.Component<{}, IDialogBlockingExampleState> {
+export class EditAccountForm extends React.Component<{}, IDialogBlockingExampleState> {
 
   constructor(props: {}) {
     super(props);

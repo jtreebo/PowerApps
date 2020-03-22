@@ -38,21 +38,9 @@ export class Toolbar extends React.Component<{}, IDetailsListDocumentsExampleSta
         }
       },
       {
-        key: 'upload',
-        text: 'Upload',
-        iconProps: { iconName: 'Upload' },
-        onClick: this.handleChange
-      },
-      {
-        key: 'share',
-        text: 'Share',
-        iconProps: { iconName: 'Share' },
-         onClick: this.handleChange
-      },
-      {
-        key: 'download',
-        text: 'Download',
-        iconProps: { iconName: 'Download' },
+        key: 'edit',
+        text: 'Edit',
+        iconProps: { iconName: 'Edit' },
         onClick: this.handleChange
       }
     ];
@@ -64,7 +52,7 @@ export class Toolbar extends React.Component<{}, IDetailsListDocumentsExampleSta
 
 
   handleChange(ev: React.KeyboardEvent<HTMLElement>, item?: IContextualMenuItem) {
-    this.props.onButtonClick(item.key);
+    //this.props.onButtonClick(item.key);
     
   }
 
