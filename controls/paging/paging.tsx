@@ -1,20 +1,13 @@
 import React, { FunctionComponent } from 'react'; 
-import { Direction } from './types';
+import { Direction, IPagingProps } from './types';
 import { createComponent, IViewComponent } from '@uifabric/foundation';
 import { Stack, IStackProps } from 'office-ui-fabric-react/lib/Stack';
 import { ActionButton, IIconProps } from 'office-ui-fabric-react';
 import { Fabric } from 'office-ui-fabric-react/lib/Fabric';
 
-export interface IXrmProps {
-    selectedCount: number;  
-    totalCount: number;
-    currentPage: number;
-    recordPerPage: number;
-    onNavigationClick?: (direction: Direction) => void;
-}
 
 
-const PagingView: IViewComponent<IXrmProps> = props => {
+const PagingView: IViewComponent<IPagingProps> = props => {
   const { children, selectedCount, totalCount, currentPage, onNavigationClick} = props;
  
 return ( <div>
@@ -53,6 +46,6 @@ return ( <div>
   
 };
 
-export const Paging: React.FunctionComponent<IXrmProps> = createComponent(PagingView);
+export const Paging: React.FunctionComponent<IPagingProps> = createComponent(PagingView);
 
 export default Paging;
