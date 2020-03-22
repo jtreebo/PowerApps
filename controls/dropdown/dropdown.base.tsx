@@ -1,28 +1,17 @@
 import * as React from 'react';
+import {IXrmDropdownProps, IXrmDropdownState} from './dropdown.types';
 import { initializeComponentRef } from '@uifabric/utilities';
-import { Dropdown, IDropdown, IDropdownProps, DropdownMenuItemType, IDropdownOption, IDropdownInternalProps, IDropdownState } from 'office-ui-fabric-react/lib/Dropdown';
+import { Dropdown, IDropdown, IDropdownOption } from 'office-ui-fabric-react/lib/Dropdown';
 
-export interface IXrmDropdownInternalProps extends IDropdownInternalProps {
-  entity: string;
-  optionSet: string;
-  attribute: string;
-  data:any;
-}
-
-export interface IXrmDropdownState extends IDropdownState {
-  options: IDropdownOption[],
-  selectedKey: any
-}
-
-export class XrmDropdownBase extends React.Component<IXrmDropdownInternalProps, IXrmDropdownState>  {
+export class XrmDropdownBase extends React.Component<IXrmDropdownProps, IXrmDropdownState>  {
    
-  constructor(props: IXrmDropdownInternalProps) {
+  constructor(props: IXrmDropdownProps) {
     super(props);
     initializeComponentRef(this);
 
     this.onChange = this.onChange.bind(this);
 
-    let ido: IDropdownOption[] = [];
+    let options: IDropdownOption[] = [];
     let selectedIndices: number[];
 
     this.state =  {
@@ -30,17 +19,22 @@ export class XrmDropdownBase extends React.Component<IXrmDropdownInternalProps, 
       hasFocus: false,
       calloutRenderEdge: undefined,
       selectedIndices: selectedIndices,
-      options: ido,
+      options: options,
       selectedKey: null
     };
     
   }
 
+  /**
+    * Populate dropdown list from metadata
+    */
   componentWillMount() {
     const {entity, optionSet, required} = this.props;
     const self = this;
 
+    let repeat: number = 0;
     let intervalId = setInterval(function() {
+      repeat++;
       if (window.xrm && window.xrm.metadata && window.xrm.metadata[entity]) {
         clearInterval(intervalId);
         const metaData = window.xrm.metadata[entity];
@@ -67,6 +61,12 @@ export class XrmDropdownBase extends React.Component<IXrmDropdownInternalProps, 
           options : sourceOptions
           });
         }
+        else {
+          // retry 5x
+          if (repeat >= 5) {
+            clearInterval(intervalId);
+          }
+        }
     }, 400);
   }
 
@@ -75,8 +75,11 @@ export class XrmDropdownBase extends React.Component<IXrmDropdownInternalProps, 
 
   }
 
+  /**
+   * Update selected key
+   */
   componentWillReceiveProps(nextProps, nextState) {
-  const {entity, optionSet, attribute, data} = this.props;
+    const {entity, optionSet, attribute, data} = this.props;
 
     if (!data || !attribute || !data[attribute]) return;
     this.setState(
@@ -86,15 +89,21 @@ export class XrmDropdownBase extends React.Component<IXrmDropdownInternalProps, 
     );
   }
 
+
+    /**
+     * 
+     */
    private onChange = (event: React.FormEvent<HTMLDivElement>, option?: IDropdownOption, index?: number) :void => {
+     const {selectedKey, id, data, onChange} = this.props;
 
     if (option === null) {
      this.setState(
        {selectedKey: null}
-     );
-      return;}
+      );
+      return;
+    }
 
-     const {selectedKey, id, data, onChange} = this.props;
+    
 
      this.setState(
        {selectedKey: option.key}
@@ -114,8 +123,6 @@ export class XrmDropdownBase extends React.Component<IXrmDropdownInternalProps, 
    }
 
   public render(): JSX.Element {
-    
-    const props = this.props;
     const {
       className,
       label,
@@ -134,7 +141,7 @@ export class XrmDropdownBase extends React.Component<IXrmDropdownInternalProps, 
       selectedKey,
       attribute,
       id
-    } = props;
+    } = this.props;
 
 
     return (
