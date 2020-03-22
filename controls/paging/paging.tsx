@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from 'react'; 
-import { Direction, IPagingProps } from './types';
+import { Direction, IPagingProps } from './paging.types';
 import { createComponent, IViewComponent } from '@uifabric/foundation';
 import { Stack, IStackProps } from 'office-ui-fabric-react/lib/Stack';
 import { ActionButton, IIconProps } from 'office-ui-fabric-react';
