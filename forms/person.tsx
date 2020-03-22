@@ -9,6 +9,7 @@ import { Dropdown, IDropdown, IDropdownProps, DropdownMenuItemType, IDropdownOpt
 
 import { Xrm } from '../controls/xrm';
 import { XrmDropdown } from '../controls/dropdown';
+
 interface AppProps { }
 
 interface AppState {
@@ -165,7 +166,8 @@ _checkData = (): void => {
         </Stack.Item>
         
       </Stack>
-        
+        <Stack  horizontal tokens={stackTokens}>
+        <Stack.Item grow>
         <XrmDropdown
           label="Marital Status" required
           entity="contact"
@@ -174,8 +176,8 @@ _checkData = (): void => {
           attribute="familystatuscode"
           data={this.state.data}
           onChange={this.onXrmControlChange}
-        />
-
+        /></Stack.Item>
+        <Stack.Item grow>
         <XrmDropdown
           label="Payment Terms" 
           entity="contact"
@@ -185,15 +187,12 @@ _checkData = (): void => {
           data={this.state.data}
           onChange={this.onXrmControlChange}
         />
-
-<Dropdown
-          label="Test" 
-          id="fruit"
-          options={ido}
-          selectedKey={this.state.selectedKey}
-          onChange={this.onChange}
-        />
+        </Stack.Item>
+        </Stack>
         
+
+        
+
       <Stack horizontal tokens={stackTokens} horizontalAlign="end">
       <Stack.Item>
          <PrimaryButton
@@ -201,9 +200,7 @@ _checkData = (): void => {
           onClick={this._primaryClicked}/>
       </Stack.Item>
       <Stack.Item>
-<PrimaryButton
-          text="Check Data"
-          onClick={this._checkData}/>
+
       </Stack.Item>
       </Stack>
 <Stack>

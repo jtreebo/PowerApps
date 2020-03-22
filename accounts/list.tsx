@@ -19,22 +19,12 @@ import { ScrollablePane, ScrollbarVisibility } from 'office-ui-fabric-react/lib/
 import { Sticky, StickyPositionType } from 'office-ui-fabric-react/lib/Sticky';
 import { IRenderFunction } from 'office-ui-fabric-react/lib/Utilities';
 import { TooltipHost } from 'office-ui-fabric-react/lib/Tooltip';
-
+import { Paging } from '../controls/paging'
 
 const exampleChildClass = mergeStyles({
   display: 'block',
   marginBottom: '10px'
 });
-
-const _footerItem: IScrollablePaneDetailsListExampleItem = {
-  key: 'footer',
-  test1: 'Footer 1',
-  test2: 'Footer 2',
-  test3: 'Footer 3',
-  test4: 'Footer 4',
-  test5: 'Footer 5',
-  test6: 'Footer 6'
-};
 
 const classNames = mergeStyleSets({
   wrapper: {
@@ -80,14 +70,7 @@ const onRenderDetailsFooter: IRenderFunction<IDetailsFooterProps> = (props, defa
   return (
     <Sticky stickyPosition={StickyPositionType.Footer} isScrollSynced={true}>
       <div className={classNames.row}>
-        <DetailsRow
-          columns={props.columns}
-          item={_footerItem}
-          itemIndex={-1}
-          selection={props.selection}
-          selectionMode={(props.selection && props.selection.mode) || SelectionMode.none}
-          rowWidth={props.rowWidth}
-        />
+        
       </div>
     </Sticky>
   );
@@ -106,6 +89,7 @@ export interface IDetailsListBasicExampleState {
   items: IDetailsListBasicExampleItem[];
   selectionDetails: string;
   dialogVisible: boolean;
+  selectedCount:number;
 }
 
 export class List extends React.Component<{}, IDetailsListBasicExampleState> {
@@ -131,7 +115,8 @@ this.onButtonClick = this.onButtonClick.bind(this);
     this.state = {
       items: [],
       selectionDetails: this._getSelectionDetails(),
-      dialogVisible: false
+      dialogVisible: false,
+      selectedCount:0
     };
   }
 
@@ -162,6 +147,10 @@ this.onButtonClick = this.onButtonClick.bind(this);
     
   };
 
+  private onPagingClick(direction) {
+    alert(direction);
+  }
+
   public render(): JSX.Element {
     const { items, selectionDetails, dialogVisible } = this.state;
 
@@ -180,17 +169,18 @@ this.onButtonClick = this.onButtonClick.bind(this);
             columns={this._columns}
             layoutMode={DetailsListLayoutMode.fixedColumns}
             selection={this._selection}
-            selectionMode={1}
+           
             selectionPreservedOnEmptyClick={true}
             onItemInvoked={this._onItemInvoked}
             onRenderDetailsHeader={onRenderDetailsHeader}
-            onRenderDetailsFooter={onRenderDetailsFooter}
+            //onRenderDetailsFooter={onRenderDetailsFooter}
             constrainMode={ConstrainMode.unconstrained}
           />
+          
         </MarqueeSelection>
           <Sticky stickyPosition={StickyPositionType.Footer}>
-             <div className={exampleChildClass}>{selectionDetails}</div>
-        <Announced message={selectionDetails} />
+          <Paging selectedCount={this.state.selectedCount} totalCount={this.state.items.length} currentPage={2} onNavigationClick={this.onPagingClick}/>
+             
           </Sticky>
 </ScrollablePane>
 
@@ -203,6 +193,7 @@ this.onButtonClick = this.onButtonClick.bind(this);
   private _getSelectionDetails(): string {
     const selectionCount = this._selection.getSelectedCount();
 
+    this.setState({selectedCount:selectionCount});
     switch (selectionCount) {
       case 0:
         return 'No items selected';
