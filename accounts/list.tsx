@@ -179,7 +179,7 @@ this.onButtonClick = this.onButtonClick.bind(this);
           
         </MarqueeSelection>
           <Sticky stickyPosition={StickyPositionType.Footer}>
-          <Paging from={1} to={this.state.items.length} selectedCount={this.state.selectedCount} totalCount={this.state.items.length} currentPage={2} onNavigationClick={this.onPagingClick}/>
+          <Paging from={1} to={this.state.items.length} selectedCount={this.state.selectedCount} totalCount={this.state.items.length} currentPage={1} onNavigationClick={this.onPagingClick}/>
              
           </Sticky>
 </ScrollablePane>

@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { initializeComponentRef } from '@uifabric/utilities';
 import { Dropdown, IDropdown, IDropdownProps, DropdownMenuItemType, IDropdownOption, IDropdownInternalProps, IDropdownState } from 'office-ui-fabric-react/lib/Dropdown';
-import { from } from "linq-to-typescript"
 
 export interface IXrmDropdownInternalProps extends IDropdownInternalProps {
   entity: string;
