@@ -7,6 +7,16 @@ export enum Direction {
 export interface IPagingProps {
 
     /**
+    * From
+    */
+    from: number;
+
+    /**
+    * To
+    */
+    to: number;
+
+    /**
     * The no of selected records
     */
     selectedCount: number;  

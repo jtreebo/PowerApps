@@ -147,7 +147,7 @@ this.onButtonClick = this.onButtonClick.bind(this);
     
   };
 
-  private onPagingClick(direction) {
+  private onPagingClick(direction: Direction) {
     alert(direction);
   }
 
@@ -179,7 +179,7 @@ this.onButtonClick = this.onButtonClick.bind(this);
           
         </MarqueeSelection>
           <Sticky stickyPosition={StickyPositionType.Footer}>
-          <Paging selectedCount={this.state.selectedCount} totalCount={this.state.items.length} currentPage={2} onNavigationClick={this.onPagingClick}/>
+          <Paging from={1} to={this.state.items.length} selectedCount={this.state.selectedCount} totalCount={this.state.items.length} currentPage={2} onNavigationClick={this.onPagingClick}/>
              
           </Sticky>
 </ScrollablePane>
